@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: edc7fc0f83dd0ba4991ca1f3b8d005e3
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 290359
+  packageName: Stickmans
+  packageVersion: 1.0
+  assetPath: Assets/Stickmans/Prefabs/URP/stickman1_URP.prefab
+  uploadId: 678115
