@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.song.core": {
+      "version": "https://github.com/song7446/SongLib.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "bd89ef9d6d456ac1aeeeab70ffc195257a5b9310"
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.9",
       "depth": 0,
