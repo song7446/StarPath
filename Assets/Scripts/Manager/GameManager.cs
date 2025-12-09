@@ -1,17 +1,20 @@
+using System;
 using SongLib.Core.Singleton;
 using UnityEngine;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public GameStateMachine stateMachine;
+
+    protected override void Awake()
     {
-        
+        base.Awake();
+
+        stateMachine ??= FindAnyObjectByType<GameStateMachine>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        stateMachine.ChangeState<TitleState>();
     }
 }
