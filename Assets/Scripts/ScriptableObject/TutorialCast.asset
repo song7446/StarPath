@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03fab5f58f12c254a933f066d48c02bb, type: 3}
+  m_Name: TutorialCast
+  m_EditorClassIdentifier: Assembly-CSharp::CutSceneCast
+  actorInfos:
+  - key: 001
+    actorName: Dad
+    position: {x: 0, y: 0, z: 0}
+    actorPrefab: {fileID: 6158900408898323932, guid: a04c217411e99424ca8ae26f164c7d90, type: 3}
+  - key: 002
+    actorName: Baby
+    position: {x: 0, y: 0, z: 0}
+    actorPrefab: {fileID: 4309262443577283261, guid: 755c68791f5701b48adf860155a9120e, type: 3}
