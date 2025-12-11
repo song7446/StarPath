@@ -1,15 +1,17 @@
 using UnityEngine;
+using UnityEngine.Timeline;
 
 [CreateAssetMenu(fileName = "CutSceneCast", menuName = "ScriptableObject/CutSceneCast")]
 public class CutSceneCast : ScriptableObject
 {
     [System.Serializable]
-    public class ActorInfo
+    public class CharacterInfo
     {
         public string key;
-        public string actorName;
+        public string characterName;
         public Vector3 position;
-        public GameObject actorPrefab;
+        public Vector3 rotation;
+        public GameObject characterPrefab;
     }
     
     [System.Serializable]
@@ -18,9 +20,11 @@ public class CutSceneCast : ScriptableObject
         public string key;
         public string objectName;
         public Vector3 position;
+        public Vector3 rotation;
         public GameObject objectPrefab;
     }
     
-    public ActorInfo[] actorInfos;
+    public CharacterInfo[] characterInfos;
     public ObjectInfo[] objectInfos;
+    public TimelineAsset timelineAsset;
 }
