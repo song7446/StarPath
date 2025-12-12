@@ -16,7 +16,7 @@ public class TitleUI : MonoBehaviour
 
     private void OnClickStartButton()
     {
-        GameStateMachine.Instance.ChangeState<InitState>();
+        GameStateMachine.Instance.ChangeState<CutSceneState>();
         SceneLoader.Instance.LoadScene(SceneName.GameSceneName);
     }
 

@@ -12,6 +12,9 @@ public class CutsceneManager : MonoBehaviourSingleton<CutsceneManager>
     private readonly List<GameObject> _spawnedCharacters = new();
     private readonly List<GameObject> _spawnedObjects = new();
     
+    [SerializeField] private SignalReceiver _signalReceiver;
+    public bool IsWaitingForInput;
+
     public void PlayCutscene(CutSceneCast cast)
     {
         if (_isPlaying)
@@ -89,6 +92,20 @@ public class CutsceneManager : MonoBehaviourSingleton<CutsceneManager>
         foreach (var track in timeline.GetOutputTracks())
         {
             string trackKey = track.name;
+            
+            if (track is SignalTrack)
+            {
+                if (_signalReceiver != null)
+                {
+                    director.SetGenericBinding(track, _signalReceiver);
+                    Debug.Log($"SignalReceiver bound to track: {track.name}");
+                }
+                else
+                {
+                    Debug.LogWarning($"⚠️ No SignalReceiver found on {name}. Add one to handle signals.");
+                }
+                continue;
+            }
 
             if (keyToObject.TryGetValue(trackKey, out var target))
             {
@@ -119,5 +136,34 @@ public class CutsceneManager : MonoBehaviourSingleton<CutsceneManager>
         // PlayableDirector 제거
         if (_director != null)
             Destroy(_director.gameObject);
+    }
+    
+    public void WaitForInput()
+    {
+        if (_director == null)
+            return;
+
+        _director.Pause();
+        IsWaitingForInput = true;
+        Debug.Log("⏸ 컷씬 일시정지 - 입력 대기 중");
+    }
+
+    public void ContinueCutscene()
+    {
+        if (_director == null)
+        {
+            Debug.LogWarning("❗ Director not found for ContinueCutscene");
+            return;
+        }
+
+        if (!IsWaitingForInput)
+        {
+            Debug.Log("컷씬 입력 대기 상태가 아님");
+            return;
+        }
+
+        IsWaitingForInput = false;
+        _director.Resume();
+        Debug.Log("▶ 컷씬 재개");
     }
 }

@@ -1,8 +1,7 @@
 using SongLib.Patterns.State;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class IdleState : IState
+public class CutSceneState : IState
 {
     public void OnEnter()
     {
