@@ -17,8 +17,7 @@ public class PlayerInputHandler : MonoBehaviour
         switch (GameStateMachine.Instance.CurrentGameState)
         {
             case GameState.CutScene:
-                if (CutsceneManager.Instance.IsWaitingForInput)
-                    CutsceneManager.Instance.ContinueCutscene();
+                DialogueManager.Instance.OnInput();
                 break;
 
             case GameState.Gameplay:
