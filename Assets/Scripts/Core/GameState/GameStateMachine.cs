@@ -34,8 +34,6 @@ public class GameStateMachine : MonoBehaviourSingleton<GameStateMachine>
         _stateMachine.ChangeState<T>();
         CurrentState = _stateMachine.GetCurrentState();
         
-        Debug.Log(typeof(GameState));
-        
         if (_stateTypeMap.TryGetValue(typeof(T), out var newGameState))
         {
             CurrentGameState = newGameState;

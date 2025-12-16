@@ -49,7 +49,6 @@ public class PlayerInputHandler : MonoBehaviour
                 break;
 
             case GameState.Gameplay:
-                // StarDrawingManager.Instance.OnClick();
                 break;
 
             case GameState.UI:

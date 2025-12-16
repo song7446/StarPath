@@ -1,0 +1,64 @@
+{
+    "dialogues": [
+        {
+            "id": "Intro_01",
+            "speaker": "아들",
+            "textKo": "훌쩍 훌쩍...",
+            "textEn": "Sniff... Sniff..."
+        },
+        {
+            "id": "Intro_02",
+            "speaker": "아들",
+            "textKo": "훌쩍...",
+            "textEn": "Sniff..."
+        },
+        {
+            "id": "Intro_03",
+            "speaker": "아들",
+            "textKo": "아빠...",
+            "textEn": "Daddy"
+        },
+        {
+            "id": "Intro_04",
+            "speaker": "아들",
+            "textKo": "엄마는 어디간거야...?",
+            "textEn": "Where did Mom go?"
+        },
+        {
+            "id": "Intro_06",
+            "speaker": "아빠",
+            "textKo": "\"엄마는 저기 별나라로 갔어\r\"",
+            "textEn": "Mom went to the land of stars over there."
+        },
+        {
+            "id": "Intro_07",
+            "speaker": "아들",
+            "textKo": "별나라?",
+            "textEn": "Land of stars?"
+        },
+        {
+            "id": "Intro_08",
+            "speaker": "아빠",
+            "textKo": "그래 하늘을 봐",
+            "textEn": "\"Yeah"
+        },
+        {
+            "id": "Intro_09",
+            "speaker": "아빠",
+            "textKo": "저 많은 별들 보이지?",
+            "textEn": "Can you see all those stars?"
+        },
+        {
+            "id": "Intro_10",
+            "speaker": "아빠",
+            "textKo": "엄마는 저 멀리 떠났어",
+            "textEn": "Mom has gone far away."
+        },
+        {
+            "id": "Intro_11",
+            "speaker": "아빠",
+            "textKo": "\"한번 찾아볼래?\r\"",
+            "textEn": "Want to check it out?"
+        }
+    ]
+}

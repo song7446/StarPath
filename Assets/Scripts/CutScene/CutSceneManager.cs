@@ -143,7 +143,7 @@ public class CutsceneManager : MonoBehaviourSingleton<CutsceneManager>
         if (_director == null)
             return;
 
-        _director.Pause();
+        _director.playableGraph.GetRootPlayable(0).SetSpeed(0);
         IsWaitingForInput = true;
         Debug.Log("⏸ 컷씬 일시정지 - 입력 대기 중");
     }
@@ -163,7 +163,7 @@ public class CutsceneManager : MonoBehaviourSingleton<CutsceneManager>
         }
 
         IsWaitingForInput = false;
-        _director.Resume();
+        _director.playableGraph.GetRootPlayable(0).SetSpeed(1);
         Debug.Log("▶ 컷씬 재개");
     }
 }
