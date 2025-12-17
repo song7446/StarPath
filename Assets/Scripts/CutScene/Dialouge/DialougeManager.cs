@@ -5,10 +5,13 @@ using TMPro;
 public class DialogueManager : MonoBehaviourSingleton<DialogueManager>
 {
     [Header("UI")]
-    [SerializeField] private TMP_Text dialogueText;
+    [SerializeField] private TMP_Text dialogueTextTMP;
 
     private IDialogueDisplayStrategy _currentStrategy;
     private bool _isDialogueRunning;
+    
+    private int _currentDialogueIdx = 0;
+    private string _dialogueText;
 
     private void Update()
     {
@@ -18,11 +21,12 @@ public class DialogueManager : MonoBehaviourSingleton<DialogueManager>
         _currentStrategy.Tick(Time.deltaTime);
     }
 
-    public void StartDialogue(string text)
+    public void StartDialogue()
     {
+        _dialogueText = DialogueDataRepository.Instance.GetNext(_currentDialogueIdx).textKo;
         // 👉 전략 선택 (지금은 Typewriter 고정)
-        _currentStrategy = new TypewriterStrategy(dialogueText, 0.05f);
-        _currentStrategy.Start(text);
+        _currentStrategy = new TypewriterStrategy(dialogueTextTMP, 0.05f);
+        _currentStrategy.Start(_dialogueText);
 
         _isDialogueRunning = true;
     }

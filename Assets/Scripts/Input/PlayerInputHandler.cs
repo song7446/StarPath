@@ -8,11 +8,7 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (!context.performed)
             return;
-
-        // ✅ UI 클릭 무시
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-            return;
-
+        
         // ✅ 상태별 라우팅
         switch (GameStateMachine.Instance.CurrentGameState)
         {
@@ -33,10 +29,6 @@ public class PlayerInputHandler : MonoBehaviour
     public void OnSpace(InputAction.CallbackContext context)
     {
         if (!context.performed)
-            return;
-
-        // ✅ UI 클릭 무시
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             return;
 
         // ✅ 상태별 라우팅

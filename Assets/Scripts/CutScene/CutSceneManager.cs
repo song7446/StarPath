@@ -137,6 +137,11 @@ public class CutsceneManager : MonoBehaviourSingleton<CutsceneManager>
         if (_director != null)
             Destroy(_director.gameObject);
     }
+
+    public void GetSignal()
+    {
+        DialogueManager.Instance.StartDialogue();
+    }
     
     public void WaitForInput()
     {
