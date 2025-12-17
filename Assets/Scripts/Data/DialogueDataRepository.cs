@@ -54,8 +54,13 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
         return _dialogueMap.ContainsKey(id);
     }
 
-    public DialogueRow GetNext(int currentIDx)
+    public bool GetNext(int currentIDx, out DialogueRow row)
     {
-        return currentIDx >= _dialogueList.Count - 1 ? null : _dialogueList[currentIDx + 1];
+        if (currentIDx < _dialogueList.Count - 1)
+            row = _dialogueList[currentIDx + 1];
+        else
+            row = null;
+        
+        return currentIDx < _dialogueList.Count - 1;
     }
 }

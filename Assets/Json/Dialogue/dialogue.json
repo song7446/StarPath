@@ -25,9 +25,15 @@
             "textEn": "Where did Mom go?"
         },
         {
+            "id": "Intro_05",
+            "speaker": "아빠",
+            "textKo": "...",
+            "textEn": "..."
+        },
+        {
             "id": "Intro_06",
             "speaker": "아빠",
-            "textKo": "\"엄마는 저기 별나라로 갔어\r\"",
+            "textKo": "엄마는 저기 별나라로 갔어",
             "textEn": "Mom went to the land of stars over there."
         },
         {
@@ -57,7 +63,7 @@
         {
             "id": "Intro_11",
             "speaker": "아빠",
-            "textKo": "\"한번 찾아볼래?\r\"",
+            "textKo": "한번 찾아볼래?",
             "textEn": "Want to check it out?"
         }
     ]
