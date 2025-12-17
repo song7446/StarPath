@@ -130,7 +130,6 @@ GameObject:
   - component: {fileID: 7150254}
   - component: {fileID: 7150257}
   - component: {fileID: 7150256}
-  - component: {fileID: 7150255}
   m_Layer: 5
   m_Name: TMP_Dialogue
   m_TagString: Untagged
@@ -157,19 +156,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -453}
   m_SizeDelta: {x: 1920, y: 176.8971}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7150255
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7150253}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4558a271dd4166e4fa12b2c25f687dbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
-  dialogueTextTMP: {fileID: 7150256}
 --- !u!114 &7150256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,7 +538,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!320 &526455973
 PlayableDirector:
   m_ObjectHideFlags: 0
@@ -614,10 +600,6 @@ PrefabInstance:
     - target: {fileID: 4309262443577283261, guid: 755c68791f5701b48adf860155a9120e, type: 3}
       propertyPath: m_Name
       value: BabyCharacter
-      objectReference: {fileID: 0}
-    - target: {fileID: 4309262443577283261, guid: 755c68791f5701b48adf860155a9120e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4612381518734426438, guid: 755c68791f5701b48adf860155a9120e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -948,6 +930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 241b7bd11800fdc48a19dddee3e06fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CutSceneManager
+  _director: {fileID: 942938288}
   _signalReceiver: {fileID: 942938289}
   IsWaitingForInput: 0
 --- !u!4 &942938287
@@ -1560,10 +1543,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character
       objectReference: {fileID: 0}
-    - target: {fileID: 6158900408898323932, guid: a04c217411e99424ca8ae26f164c7d90, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1691,6 +1670,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1867839792
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1867839793}
+  - component: {fileID: 1867839794}
+  m_Layer: 0
+  m_Name: DialogueManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1867839793
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867839792}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1867839794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867839792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4558a271dd4166e4fa12b2c25f687dbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
+  dialogueTextTMP: {fileID: 7150256}
 --- !u!1 &2025050797
 GameObject:
   m_ObjectHideFlags: 0
@@ -1847,10 +1871,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bench
       objectReference: {fileID: 0}
-    - target: {fileID: 490905150145549792, guid: 143b60ae24216fb4ea87e2f512843d91, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1113445355067775731, guid: 143b60ae24216fb4ea87e2f512843d91, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1913,6 +1933,7 @@ SceneRoots:
   - {fileID: 1472890168}
   - {fileID: 904182957}
   - {fileID: 414998012}
+  - {fileID: 1867839793}
   - {fileID: 942938287}
   - {fileID: 723020424}
   - {fileID: 213058102}

@@ -8,7 +8,7 @@ using UnityEngine.Timeline;
 public class CutsceneManager : MonoBehaviourSingleton<CutsceneManager>
 {
     private bool _isPlaying = false;
-    private PlayableDirector _director;
+    [SerializeField] private PlayableDirector _director;
     private readonly List<GameObject> _spawnedCharacters = new();
     private readonly List<GameObject> _spawnedObjects = new();
     
@@ -46,17 +46,18 @@ public class CutsceneManager : MonoBehaviourSingleton<CutsceneManager>
             _spawnedObjects.Add(obj);
         }
 
-        // 3️⃣ PlayableDirector 생성 및 설정
-        var directorGO = new GameObject("CutsceneDirector");
-        _director = directorGO.AddComponent<PlayableDirector>();
-        _director.playableAsset = cast.timelineAsset;
+        if (cast.timelineAsset != null)
+        {
+            // 3️⃣ PlayableDirector 생성 및 설정
+            _director.playableAsset = cast.timelineAsset;
 
-        // 4️⃣ Track 자동 바인딩
-        AutoBindTracks(_director, cast);
+            // 4️⃣ Track 자동 바인딩
+            AutoBindTracks(_director, cast);
 
-        // 5️⃣ 컷씬 재생
-        _director.Play();
-        // _director.stopped += OnCutsceneEnd;
+            // 5️⃣ 컷씬 재생
+            _director.Play();
+            // _director.stopped += OnCutsceneEnd;
+        }
     }
 
     private void AutoBindTracks(PlayableDirector director, CutSceneCast cast)
@@ -138,7 +139,7 @@ public class CutsceneManager : MonoBehaviourSingleton<CutsceneManager>
             Destroy(_director.gameObject);
     }
 
-    public void GetSignal()
+    public void StartDialogue()
     {
         DialogueManager.Instance.StartDialogue();
     }
