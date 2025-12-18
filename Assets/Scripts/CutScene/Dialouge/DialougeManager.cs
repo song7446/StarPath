@@ -11,9 +11,7 @@ public class DialogueManager : MonoBehaviourSingleton<DialogueManager>
 
     private int _currentDialogueIdx = 0;
     private string _dialogueText;
-
-    private bool _isWaitingForAnimation;
-
+    
     private void Update()
     {
         if (!_isDialogueRunning || _currentStrategy == null)
@@ -87,31 +85,8 @@ public class DialogueManager : MonoBehaviourSingleton<DialogueManager>
             if (animAsset.dialogueId == dialogueId)
             {
                 CutSceneAnimManager.Instance.Play(animAsset);
-                
-                if (HasWaitEndCommand(animAsset))
-                {
-                    _isWaitingForAnimation = true;
-                    _isDialogueRunning = false;
-                }
                 return;
             }
         }
-    }
-
-    private bool HasWaitEndCommand(DialogueAnimationAsset asset)
-    {
-        foreach (var cmd in asset.commands)
-        {
-            if (cmd.waitEnd)
-                return true;
-        }
-
-        return false;
-    }
-
-    public void OnDialogueAnimationFinished()
-    {
-        _isWaitingForAnimation = false;
-        OnDialogueFinished();
     }
 }
