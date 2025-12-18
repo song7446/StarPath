@@ -445,10 +445,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueDataRepository
   dialogueJson: {fileID: 4900000, guid: 19893cf55edee6441ae9b6afce7a05b1, type: 3}
-  _tutorialAnimations:
-  - {fileID: 11400000, guid: 9e3064bf24ccb1f4ca2a137af8cc3db7, type: 2}
-  - {fileID: 11400000, guid: fa1f47a18ed92d245b3fb3185ffe75e8, type: 2}
-  dialogueAnimationDatabase: {fileID: 11400000, guid: 9d2bdd119ec1be04c9f8bb3d0e38f5a8, type: 2}
+  chapterDefinitions:
+  - {fileID: 11400000, guid: be1a7c4520ae0904c866584d23c0e0b1, type: 2}
 --- !u!4 &213058102
 Transform:
   m_ObjectHideFlags: 0

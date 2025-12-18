@@ -41,7 +41,8 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
             _dialogueMap.Add(row.id, row);
             _dialogueList.Add(row);
         }
-
+        
+        chapterMap = new Dictionary<string, ChapterDefinition>();
         foreach (var chapterDefinition in chapterDefinitions)
         {
             chapterMap.Add(chapterDefinition.chapterId, chapterDefinition);

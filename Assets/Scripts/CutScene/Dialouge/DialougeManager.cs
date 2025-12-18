@@ -60,6 +60,7 @@ public class DialogueManager : MonoBehaviourSingleton<DialogueManager>
         if (DialogueDataRepository.Instance.GetNext(_currentDialogueIdx, out var row))
         {
             _dialogueText = row.textKo;
+            TryPlayDialogueAnimation(row.id);
             _currentStrategy.Start(_dialogueText);
             _isDialogueRunning = true;
             _currentDialogueIdx++;

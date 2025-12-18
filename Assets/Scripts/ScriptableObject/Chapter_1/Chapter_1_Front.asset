@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fc692c8e14f4fb4f9cde816bab6d1d7, type: 3}
-  m_Name: Chapter_1
+  m_Name: Chapter_1_Front
   m_EditorClassIdentifier: Assembly-CSharp::ChapterDefinition
-  chapterId: Chapter_1
+  chapterId: Chapter_1_Front
   startDialogueId: Chapter_1_1
   endDialogueId: Chapter_1_11
   dialogueAnimations:

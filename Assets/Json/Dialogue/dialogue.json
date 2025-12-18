@@ -1,68 +1,68 @@
 {
     "dialogues": [
         {
-            "id": "Intro_01",
-            "speaker": "아들",
+            "id": "Chapter_1_Front_1",
+            "speaker": "Son",
             "textKo": "훌쩍 훌쩍...",
             "textEn": "Sniff... Sniff..."
         },
         {
-            "id": "Intro_02",
-            "speaker": "아들",
+            "id": "Chapter_1_Front_2",
+            "speaker": "Son",
             "textKo": "훌쩍...",
             "textEn": "Sniff..."
         },
         {
-            "id": "Intro_03",
-            "speaker": "아들",
+            "id": "Chapter_1_Front_3",
+            "speaker": "Son",
             "textKo": "아빠...",
             "textEn": "Daddy"
         },
         {
-            "id": "Intro_04",
-            "speaker": "아들",
+            "id": "Chapter_1_Front_4",
+            "speaker": "Son",
             "textKo": "엄마는 어디간거야...?",
             "textEn": "Where did Mom go?"
         },
         {
-            "id": "Intro_05",
-            "speaker": "아빠",
+            "id": "Chapter_1_Front_5",
+            "speaker": "Father",
             "textKo": "...",
             "textEn": "..."
         },
         {
-            "id": "Intro_06",
-            "speaker": "아빠",
+            "id": "Chapter_1_Front_6",
+            "speaker": "Father",
             "textKo": "엄마는 저기 별나라로 갔어",
             "textEn": "Mom went to the land of stars over there."
         },
         {
-            "id": "Intro_07",
-            "speaker": "아들",
+            "id": "Chapter_1_Front_7",
+            "speaker": "Son",
             "textKo": "별나라?",
             "textEn": "Land of stars?"
         },
         {
-            "id": "Intro_08",
-            "speaker": "아빠",
+            "id": "Chapter_1_Front_8",
+            "speaker": "Father",
             "textKo": "그래 하늘을 봐",
             "textEn": "\"Yeah"
         },
         {
-            "id": "Intro_09",
-            "speaker": "아빠",
+            "id": "Chapter_1_Front_9",
+            "speaker": "Father",
             "textKo": "저 많은 별들 보이지?",
             "textEn": "Can you see all those stars?"
         },
         {
-            "id": "Intro_10",
-            "speaker": "아빠",
+            "id": "Chapter_1_Front_10",
+            "speaker": "Father",
             "textKo": "엄마는 저 멀리 떠났어",
             "textEn": "Mom has gone far away."
         },
         {
-            "id": "Intro_11",
-            "speaker": "아빠",
+            "id": "Chapter_1_Front_11",
+            "speaker": "Father",
             "textKo": "한번 찾아볼래?",
             "textEn": "Want to check it out?"
         }

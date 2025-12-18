@@ -59,8 +59,21 @@ public class CutSceneAnimManager : MonoBehaviourSingleton<CutSceneAnimManager>
             StopCoroutine(_playRoutine);
             _playRoutine = null;
         }
+        
+        foreach (var cmd in asset.commands)
+        {
+            if (!_actorAnimators.TryGetValue(cmd.actorId, out var animator))
+            {
+                Debug.LogWarning($"Animator not found for actorId: {cmd.actorId}");
+                continue;
+            }
 
-        _playRoutine = StartCoroutine(PlayRoutine(asset));
+            animator.ResetTrigger(cmd.trigger);
+            animator.SetTrigger(cmd.trigger);
+        }
+        
+
+        // _playRoutine = StartCoroutine(PlayRoutine(asset));
     }
 
     private IEnumerator PlayRoutine(DialogueAnimationAsset asset)

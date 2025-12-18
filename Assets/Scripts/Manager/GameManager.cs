@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 {
     public GameStateMachine stateMachine;
 
-    public string CurrentChapterId;
+    public string CurrentChapterId = "Chapter_1_Front";
 
     protected override void Awake()
     {
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     {
         stateMachine.ChangeState<TitleState>();
     }
-    
+
     public void EnterChapter(string chapterId)
     {
         CurrentChapterId = chapterId;
