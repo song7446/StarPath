@@ -489,7 +489,7 @@ GameObject:
   - component: {fileID: 4612381518734426438}
   - component: {fileID: 2251303378518871006}
   m_Layer: 7
-  m_Name: Baby
+  m_Name: Son
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

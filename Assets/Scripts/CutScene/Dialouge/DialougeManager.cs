@@ -68,6 +68,7 @@ public class DialogueManager : MonoBehaviourSingleton<DialogueManager>
         else
         {
             Debug.Log("Dialogue Finished");
+            GameStateMachine.Instance.ChangeState<GamePlayState>();
         }
     }
 
