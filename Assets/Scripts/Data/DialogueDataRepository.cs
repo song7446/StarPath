@@ -8,9 +8,9 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
 
     private Dictionary<string, DialogueRow> _dialogueMap;
     private List<DialogueRow> _dialogueList;
-
-    [SerializeField] private DialogueAnimationAsset[] _tutorialAnimations;
-    private Dictionary<string, DialogueAnimationAsset> _tutorialAnimationMap;
+    
+    public ChapterDefinition[] chapterDefinitions;
+    public Dictionary<string, ChapterDefinition> chapterMap;
     
     protected override void Awake()
     {
@@ -42,9 +42,9 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
             _dialogueList.Add(row);
         }
 
-        foreach (var tutorialAnimation in _tutorialAnimations)
+        foreach (var chapterDefinition in chapterDefinitions)
         {
-            _tutorialAnimationMap.Add(tutorialAnimation.dialogueId, tutorialAnimation);
+            chapterMap.Add(chapterDefinition.chapterId, chapterDefinition);
         }
     }
 
@@ -70,16 +70,5 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
             row = null;
         
         return currentIDx < _dialogueList.Count - 1;
-    }
-
-    public DialogueAnimationAsset GetDialogueAnimationAsset(string id)
-    {
-        if (_tutorialAnimationMap.TryGetValue(id, out var asset))
-        {
-            return asset;
-        }
-        
-        Debug.LogWarning($"[DialogueDataRepository] Dialogue animation not found: {id}");
-        return null;
     }
 }

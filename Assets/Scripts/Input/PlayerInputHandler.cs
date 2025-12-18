@@ -17,11 +17,6 @@ public class PlayerInputHandler : MonoBehaviour
                 break;
 
             case GameState.Gameplay:
-                // StarDrawingManager.Instance.OnClick();
-                break;
-
-            case GameState.UI:
-                // UI는 EventSystem이 이미 처리 중이므로 무시
                 break;
         }
     }
@@ -35,15 +30,10 @@ public class PlayerInputHandler : MonoBehaviour
         switch (GameStateMachine.Instance.CurrentGameState)
         {
             case GameState.CutScene:
-                if (CutsceneManager.Instance.IsWaitingForInput)
-                    CutsceneManager.Instance.ContinueCutscene();
+                DialogueManager.Instance.OnInput();
                 break;
 
             case GameState.Gameplay:
-                break;
-
-            case GameState.UI:
-                // UI는 EventSystem이 이미 처리 중이므로 무시
                 break;
         }
     }

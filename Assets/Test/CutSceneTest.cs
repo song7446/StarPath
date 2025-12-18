@@ -13,7 +13,7 @@ public class CutSceneTest : MonoBehaviour
         if (playOnStart && testCutScene != null)
         {
             Debug.Log($"▶ 컷씬 자동 재생 시작: {testCutScene.name}");
-            CutsceneManager.Instance.PlayCutscene(testCutScene);
+            TimelineManager.Instance.PlayCutscene(testCutScene);
         }
     }
 
@@ -28,6 +28,6 @@ public class CutSceneTest : MonoBehaviour
         }
 
         Debug.Log($"▶ 컷씬 수동 재생: {testCutScene.name}");
-        CutsceneManager.Instance.PlayCutscene(testCutScene);
+        TimelineManager.Instance.PlayCutscene(testCutScene);
     }
 }

@@ -12,6 +12,8 @@ public class DialogueManager : MonoBehaviourSingleton<DialogueManager>
     private int _currentDialogueIdx = 0;
     private string _dialogueText;
 
+    private bool _isWaitingForAnimation;
+
     private void Update()
     {
         if (!_isDialogueRunning || _currentStrategy == null)
@@ -25,6 +27,8 @@ public class DialogueManager : MonoBehaviourSingleton<DialogueManager>
         if (DialogueDataRepository.Instance.GetNext(_currentDialogueIdx, out var row))
         {
             _dialogueText = row.textKo;
+
+            TryPlayDialogueAnimation(row.id);
 
             // 👉 전략 선택 (지금은 Typewriter 고정)
             _currentStrategy = new TypewriterStrategy(dialogueTextTMP, 0.05f);
@@ -52,7 +56,7 @@ public class DialogueManager : MonoBehaviourSingleton<DialogueManager>
     private void OnDialogueFinished()
     {
         _isDialogueRunning = false;
-        
+
         if (DialogueDataRepository.Instance.GetNext(_currentDialogueIdx, out var row))
         {
             _dialogueText = row.textKo;
@@ -64,5 +68,48 @@ public class DialogueManager : MonoBehaviourSingleton<DialogueManager>
         {
             Debug.Log("Dialogue Finished");
         }
+    }
+
+    private void TryPlayDialogueAnimation(string dialogueId)
+    {
+        var repo = DialogueDataRepository.Instance;
+        if (repo == null || repo.chapterDefinitions == null)
+            return;
+
+        // 👉 chapterId는 상위 컨텍스트에서 가져온다
+        var chapterId = GameManager.Instance.CurrentChapterId;
+
+        DialogueAnimationAsset[] animAssets = repo.chapterMap[chapterId].dialogueAnimations;
+        foreach (var animAsset in animAssets)
+        {
+            if (animAsset.dialogueId == dialogueId)
+            {
+                CutSceneAnimManager.Instance.Play(animAsset);
+                
+                if (HasWaitEndCommand(animAsset))
+                {
+                    _isWaitingForAnimation = true;
+                    _isDialogueRunning = false;
+                }
+                return;
+            }
+        }
+    }
+
+    private bool HasWaitEndCommand(DialogueAnimationAsset asset)
+    {
+        foreach (var cmd in asset.commands)
+        {
+            if (cmd.waitEnd)
+                return true;
+        }
+
+        return false;
+    }
+
+    public void OnDialogueAnimationFinished()
+    {
+        _isWaitingForAnimation = false;
+        OnDialogueFinished();
     }
 }

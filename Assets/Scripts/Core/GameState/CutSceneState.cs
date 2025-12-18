@@ -5,7 +5,7 @@ public class CutSceneState : IState
 {
     public void OnEnter()
     {
-        
+
     }
 
     public void OnUpdate(float deltaTime)
