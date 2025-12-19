@@ -15,12 +15,12 @@ MonoBehaviour:
   characterInfos:
   - key: Father
     characterName: Father
-    position: {x: -0.35, y: -1.93, z: -1.13806}
+    position: {x: -0.35, y: -2.1, z: -1.13806}
     rotation: {x: 0, y: 0, z: 0}
     characterPrefab: {fileID: 6158900408898323932, guid: a04c217411e99424ca8ae26f164c7d90, type: 3}
   - key: Son
     characterName: Son
-    position: {x: 0.54, y: -1.96, z: -1.13806}
+    position: {x: 0.54, y: -2, z: -1.13806}
     rotation: {x: 0, y: 0, z: 0}
     characterPrefab: {fileID: 4309262443577283261, guid: 755c68791f5701b48adf860155a9120e, type: 3}
   objectInfos:
