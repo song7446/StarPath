@@ -1,23 +1,19 @@
 using System;
 using System.Collections.Generic;
+using SongLib;
 using SongLib.Core.Singleton;
 using UnityEngine;
 
-public class CutSceneManager : MonoBehaviourSingleton<CutSceneManager>
+public class CutSceneManager : MonoBehaviourSingleton<CutSceneManager>,IGameInitializer
 {
     public List<GameObject> _spawnedCharacters = new();
     public List<GameObject> _spawnedObjects = new();
+    
+    public CutSceneCast CurrentCast;
 
-    [SerializeField] private CutSceneCast[] _casts;
-
-    private void Start()
+    public void Initialize(Action onCompleted)
     {
-        InitCutScene(_casts[0]);
-    }
-
-    public void InitCutScene(CutSceneCast cast)
-    {
-        foreach (var info in cast.characterInfos)
+        foreach (var info in CurrentCast.characterInfos)
         {
             if (info.characterPrefab == null) continue;
 
@@ -27,7 +23,7 @@ public class CutSceneManager : MonoBehaviourSingleton<CutSceneManager>
         }
 
         // 2️⃣ 오브젝트 생성
-        foreach (var info in cast.objectInfos)
+        foreach (var info in CurrentCast.objectInfos)
         {
             if (info.objectPrefab == null) continue;
 
@@ -36,14 +32,26 @@ public class CutSceneManager : MonoBehaviourSingleton<CutSceneManager>
             _spawnedObjects.Add(obj);
         }
 
-        if (cast.timelineAsset == null)
+        StartCutScene();
+        
+        onCompleted?.Invoke();
+    }
+    
+    public void SetCurrentCast(CutSceneCast cast)
+    {
+        CurrentCast = cast;
+    }
+
+    public void StartCutScene()
+    {
+        if (CurrentCast.timelineAsset == null)
         {
-            CutSceneAnimManager.Instance.InitAnimators(cast, _spawnedCharacters);
+            CutSceneAnimManager.Instance.InitAnimators(CurrentCast, _spawnedCharacters);
             DialogueManager.Instance.StartDialogue();
         }
         else
         {
-            TimelineManager.Instance.PlayCutscene(cast);
+            TimelineManager.Instance.PlayCutscene(CurrentCast);
         }
     }
 }

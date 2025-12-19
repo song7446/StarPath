@@ -10,10 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fc692c8e14f4fb4f9cde816bab6d1d7, type: 3}
-  m_Name: Chapter_1_Front
+  m_Name: Chapter_1_Back
   m_EditorClassIdentifier: Assembly-CSharp::ChapterDefinition
-  chapterId: Chapter_1_Front
-  dialogueAnimations:
-  - {fileID: 11400000, guid: 9e3064bf24ccb1f4ca2a137af8cc3db7, type: 2}
-  - {fileID: 11400000, guid: fa1f47a18ed92d245b3fb3185ffe75e8, type: 2}
-  cutSceneCasts: {fileID: 11400000, guid: 1939500bde5fc7242b53cdaa95707485, type: 2}
+  chapterId: Chapter_1_Back
+  dialogueAnimations: []
+  cutSceneCasts: {fileID: 11400000, guid: bce233f021bc6774fb3a03192f5deb5f, type: 2}

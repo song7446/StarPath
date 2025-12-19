@@ -507,6 +507,7 @@ MonoBehaviour:
   twinkleStarPrefab: {fileID: 8901516959378362846, guid: fe569bdc47135194b9d975d8c93019a1, type: 3}
   starCount: 30
   spawnArea: {x: 9, y: 5}
+  minDistance: 0.7
 --- !u!4 &702370684
 Transform:
   m_ObjectHideFlags: 0
@@ -795,7 +796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807baf50c599b8848995053e18431e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  stateMachine: {fileID: 1292213914}
+  CurrentChapterId: Chapter_1_Front
 --- !u!4 &1028684741
 Transform:
   m_ObjectHideFlags: 0
@@ -1195,6 +1196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b093b643cc5c447b7512e60e8db3a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameStateMachine
+  CurrentGameState: 0
 --- !u!4 &1292213915
 Transform:
   m_ObjectHideFlags: 0

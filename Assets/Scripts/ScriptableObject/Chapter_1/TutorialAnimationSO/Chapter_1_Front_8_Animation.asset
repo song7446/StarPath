@@ -17,3 +17,6 @@ MonoBehaviour:
   - actorId: Father
     trigger: SittingAndPointing
     waitEnd: 0
+  - actorId: Son
+    trigger: SittingHeadUp
+    waitEnd: 0

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03fab5f58f12c254a933f066d48c02bb, type: 3}
+  m_Name: Chapter_1_Back_Cast
+  m_EditorClassIdentifier: Assembly-CSharp::CutSceneCast
+  characterInfos:
+  - key: Father
+    characterName: Father
+    position: {x: -0.35, y: -1.93, z: -1.13806}
+    rotation: {x: 0, y: 0, z: 0}
+    characterPrefab: {fileID: 6158900408898323932, guid: a04c217411e99424ca8ae26f164c7d90, type: 3}
+  - key: Son
+    characterName: Son
+    position: {x: 0.54, y: -1.96, z: -1.13806}
+    rotation: {x: 0, y: 0, z: 0}
+    characterPrefab: {fileID: 4309262443577283261, guid: 755c68791f5701b48adf860155a9120e, type: 3}
+  objectInfos:
+  - key: Bench_01
+    objectName: Bench
+    position: {x: 0, y: -1.69, z: -1.13806}
+    rotation: {x: 0, y: 0, z: 0}
+    objectPrefab: {fileID: 490905150145549792, guid: 143b60ae24216fb4ea87e2f512843d91, type: 3}
+  timelineAsset: {fileID: 0}

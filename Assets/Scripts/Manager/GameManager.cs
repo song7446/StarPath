@@ -4,21 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
-    public GameStateMachine stateMachine;
-
     public string CurrentChapterId = "Chapter_1_Front";
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-        stateMachine ??= FindAnyObjectByType<GameStateMachine>();
-    }
-
-    private void Start()
-    {
-        stateMachine.ChangeState<TitleState>();
-    }
 
     public void EnterChapter(string chapterId)
     {

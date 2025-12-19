@@ -2,69 +2,129 @@
     "dialogues": [
         {
             "id": "Chapter_1_Front_1",
+            "chapterId": "Chapter_1_Front",
             "speaker": "Son",
             "textKo": "훌쩍 훌쩍...",
             "textEn": "Sniff... Sniff..."
         },
         {
             "id": "Chapter_1_Front_2",
+            "chapterId": "Chapter_1_Front",
             "speaker": "Son",
             "textKo": "훌쩍...",
             "textEn": "Sniff..."
         },
         {
             "id": "Chapter_1_Front_3",
+            "chapterId": "Chapter_1_Front",
             "speaker": "Son",
             "textKo": "아빠...",
             "textEn": "Daddy"
         },
         {
             "id": "Chapter_1_Front_4",
+            "chapterId": "Chapter_1_Front",
             "speaker": "Son",
             "textKo": "엄마는 어디간거야...?",
             "textEn": "Where did Mom go?"
         },
         {
             "id": "Chapter_1_Front_5",
+            "chapterId": "Chapter_1_Front",
             "speaker": "Father",
             "textKo": "...",
             "textEn": "..."
         },
         {
             "id": "Chapter_1_Front_6",
+            "chapterId": "Chapter_1_Front",
             "speaker": "Father",
             "textKo": "엄마는 저기 별나라로 갔어",
             "textEn": "Mom went to the land of stars over there."
         },
         {
             "id": "Chapter_1_Front_7",
+            "chapterId": "Chapter_1_Front",
             "speaker": "Son",
             "textKo": "별나라?",
             "textEn": "Land of stars?"
         },
         {
             "id": "Chapter_1_Front_8",
+            "chapterId": "Chapter_1_Front",
             "speaker": "Father",
             "textKo": "그래 하늘을 봐",
             "textEn": "\"Yeah"
         },
         {
             "id": "Chapter_1_Front_9",
+            "chapterId": "Chapter_1_Front",
             "speaker": "Father",
             "textKo": "저 많은 별들 보이지?",
             "textEn": "Can you see all those stars?"
         },
         {
             "id": "Chapter_1_Front_10",
+            "chapterId": "Chapter_1_Front",
             "speaker": "Father",
             "textKo": "엄마는 저 멀리 떠났어",
             "textEn": "Mom has gone far away."
         },
         {
             "id": "Chapter_1_Front_11",
+            "chapterId": "Chapter_1_Front",
             "speaker": "Father",
             "textKo": "한번 찾아볼래?",
             "textEn": "Want to check it out?"
+        },
+        {
+            "id": "Chapter_1_Back_1",
+            "chapterId": "Chapter_1_Back",
+            "speaker": "Father",
+            "textKo": "잘했어",
+            "textEn": "null"
+        },
+        {
+            "id": "Chapter_1_Back_2",
+            "chapterId": "Chapter_1_Back",
+            "speaker": "Father",
+            "textKo": "너가 언젠가 아빠처럼 훌륭한 사람이 된다면",
+            "textEn": "null"
+        },
+        {
+            "id": "Chapter_1_Back_3",
+            "chapterId": "Chapter_1_Back",
+            "speaker": "Father",
+            "textKo": "엄마를 찾을 수 있게 될꺼야",
+            "textEn": "null"
+        },
+        {
+            "id": "Chapter_1_Back_4",
+            "chapterId": "Chapter_1_Back",
+            "speaker": "Son",
+            "textKo": "알겠어",
+            "textEn": "null"
+        },
+        {
+            "id": "Chapter_1_Back_5",
+            "chapterId": "Chapter_1_Back",
+            "speaker": "Son",
+            "textKo": "나도 아빠처럼 훌륭한 사람이 되도록",
+            "textEn": "null"
+        },
+        {
+            "id": "Chapter_1_Back_6",
+            "chapterId": "Chapter_1_Back",
+            "speaker": "Son",
+            "textKo": "밥도 잘 먹고 똥도 잘 싸고 잠도 잘 자고",
+            "textEn": "null"
+        },
+        {
+            "id": "Chapter_1_Back_7",
+            "chapterId": "Chapter_1_Back",
+            "speaker": "Son",
+            "textKo": "열심히 노력해볼게!",
+            "textEn": "null"
         }
     ]
 }

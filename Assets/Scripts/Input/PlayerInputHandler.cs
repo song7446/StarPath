@@ -6,35 +6,21 @@ public class PlayerInputHandler : MonoBehaviour
 {
     public void OnClick(InputAction.CallbackContext context)
     {
-        if (!context.performed)
-            return;
-        
-        // ✅ 상태별 라우팅
-        switch (GameStateMachine.Instance.CurrentGameState)
-        {
-            case GameState.CutScene:
-                DialogueManager.Instance.OnInput();
-                break;
+        if (!context.performed) return;
 
-            case GameState.Gameplay:
-                break;
+        if (GameStateMachine.Instance.GetCurrentState() is IInputState inputState)
+        {
+            inputState.OnClick();
         }
     }
 
     public void OnSpace(InputAction.CallbackContext context)
     {
-        if (!context.performed)
-            return;
+        if (!context.performed) return;
 
-        // ✅ 상태별 라우팅
-        switch (GameStateMachine.Instance.CurrentGameState)
+        if (GameStateMachine.Instance.GetCurrentState() is IInputState inputState)
         {
-            case GameState.CutScene:
-                DialogueManager.Instance.OnInput();
-                break;
-
-            case GameState.Gameplay:
-                break;
+            inputState.OnSpace();
         }
     }
 

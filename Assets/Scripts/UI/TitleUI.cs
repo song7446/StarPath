@@ -1,5 +1,4 @@
-using System;
-using SongLib.Core;
+using SongLib;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,12 +13,17 @@ public class TitleUI : MonoBehaviour
         _exitButton.onClick.AddListener(OnClickExitButton);
     }
 
-    private void OnClickStartButton()
+    private void Start()
     {
-        GameStateMachine.Instance.ChangeState<CutSceneState>();
-        SceneLoader.Instance.LoadScene(SceneName.GameSceneName);
+        GameStateMachine.Instance.ChangeState<TitleState>();
     }
 
+    private void OnClickStartButton()
+    {
+        SceneLoader.Instance.LoadScene(SceneName.GameSceneName);
+    }
+    
+    
     private void OnClickExitButton()
     {
 #if UNITY_EDITOR

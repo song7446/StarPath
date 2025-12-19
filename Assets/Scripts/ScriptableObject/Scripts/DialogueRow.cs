@@ -2,6 +2,7 @@
 public class DialogueRow
 {
     public string id;
+    public string chapterId;
     public string speaker;
     public string textKo;
     public string textEn;

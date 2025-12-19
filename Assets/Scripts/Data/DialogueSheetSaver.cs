@@ -27,9 +27,10 @@ public class DialogueSheetSaver : ISheetJsonParser
             list.Add(new DialogueRow
             {
                 id = cols[0].Trim(),
-                speaker = cols[1].Trim(),
-                textKo = cols[2].Trim(),
-                textEn = cols[3].Trim()
+                chapterId = cols[1].Trim(),
+                speaker = cols[2].Trim(),
+                textKo = cols[3].Trim(),
+                textEn = cols[4].Trim()
             });
         }
 
