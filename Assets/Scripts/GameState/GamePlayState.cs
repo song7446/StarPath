@@ -6,7 +6,7 @@ public class GamePlayState : IState
 {
     public void OnEnter()
     {
-        
+        // PuzzleStarSpawner.CreatePuzzleStar();
     }
 
     public void OnUpdate(float deltaTime)
