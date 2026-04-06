@@ -1,90 +1,108 @@
 using UnityEngine;
+using UnityEngine.InputSystem; // New Input System 사용
 using System.Collections.Generic;
-using SongLib.Core.Singleton; // 작성하신 네임스페이스 추가
-using UnityEngine.InputSystem;
+using SongLib.Core.Singleton;
 
 public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
 {
-    [Header("Line Settings")]
-    public GameObject linePrefab; // LineRenderer가 붙은 프리팹
-
-    private PuzzleStar startStar;   
-    private PuzzleStar hoveredStar; 
-    private LineRenderer currentLine; 
+    public static ConstellationManager Instance { get; private set; }
     
-    // (시작 별 ID, 끝 별 ID) 형태로 연결된 선들을 저장
-    private HashSet<string> connectedPairs = new HashSet<string>();
+    [Header("선 긋기 설정")]
+    public LineRenderer linePrefab; // 에디터에서 연결할 선 프리팹
+    
+    // 상태 추적용 변수들
+    private LineRenderer currentLine;
+    private PuzzleStar startStar;
+    private PuzzleStar hoveredStar;
+    private bool isDrawing = false;
+    
+    // 완성된 선들을 모아둘 리스트
+    private List<LineRenderer> permanentLines = new List<LineRenderer>();
+
+    private void Awake() 
+    { 
+        Instance = this; 
+    }
+
+    // PuzzleStar의 OnInteract()에서 호출됨
+    public void StartDrawing(PuzzleStar star)
+    {
+        isDrawing = true;
+        startStar = star;
+        
+        // 1. 새로운 선 생성
+        currentLine = Instantiate(linePrefab, transform);
+        currentLine.positionCount = 2; // 선의 점 개수 (시작점, 끝점)
+        
+        // 2. 시작점(0)과 끝점(1)을 일단 클릭한 별의 위치로 고정
+        currentLine.SetPosition(0, startStar.transform.position);
+        currentLine.SetPosition(1, startStar.transform.position); 
+    }
 
     private void Update()
     {
-        // 선을 긋는 중이면 마우스를 따라가게 함
-        if (currentLine != null && startStar != null)
+        if (!isDrawing || currentLine == null) return;
+
+        // 1. 마우스 월드 좌표 계산
+        Vector2 mousePos = Mouse.current.position.ReadValue();
+        Vector2 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+        // 2. 실시간 레이캐스트로 마우스 아래에 다른 별이 있는지 확인 (Hover 처리)
+        RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
+        hoveredStar = null;
+
+        if (hit.collider != null)
         {
-            Vector2 mousePos = Mouse.current.position.ReadValue();
-            currentLine.SetPosition(1, mousePos);
+            PuzzleStar star = hit.collider.GetComponent<PuzzleStar>();
+            // 마우스 아래에 있는 게 별이고, 내가 처음 클릭한 시작 별이 아니라면?
+            if (star != null && star != startStar) 
+            {
+                hoveredStar = star;
+            }
         }
-    }
 
-    // --- 이하 마우스 이벤트 처리 ---
-
-    public void StartDrawing(PuzzleStar star)
-    {
-        startStar = star;
-        GameObject lineObj = Instantiate(linePrefab, transform);
-        currentLine = lineObj.GetComponent<LineRenderer>();
-        
-        currentLine.SetPosition(0, startStar.transform.position);
-        currentLine.SetPosition(1, startStar.transform.position);
-    }
-
-    public void SetHoveredStar(PuzzleStar star)
-    {
-        hoveredStar = star;
-    }
-
-    public void ClearHoveredStar(PuzzleStar star)
-    {
-        if (hoveredStar == star)
+        // 3. 선의 끝점(1번 인덱스) 위치 업데이트 (자석 효과)
+        if (hoveredStar != null)
         {
-            hoveredStar = null;
-        }
-    }
-
-    public void EndDrawing()
-    {
-        if (currentLine == null) return;
-
-        // 다른 별 위에서 마우스를 뗐을 때 연결 성공
-        if (hoveredStar != null && hoveredStar != startStar)
-        {
+            // 마우스가 다른 별 위에 있으면 마우스 좌표가 아니라 그 별의 정중앙에 선이 딱 붙게 만듭니다.
             currentLine.SetPosition(1, hoveredStar.transform.position);
-
-            // "작은번호-큰번호" 규칙으로 고유 키 생성 (방향 상관없이 같은 연결로 취급)
-            int minID = Mathf.Min(startStar.starID, hoveredStar.starID);
-            int maxID = Mathf.Max(startStar.starID, hoveredStar.starID);
-            string pairKey = $"{minID}-{maxID}";
-
-            if (!connectedPairs.Contains(pairKey))
-            {
-                connectedPairs.Add(pairKey);
-                Debug.Log($"별 연결됨: {pairKey}");
-                
-                // 정답 체크 로직이 들어갈 자리
-            }
-            else
-            {
-                // 이미 이은 선이면 삭제
-                Destroy(currentLine.gameObject);
-            }
         }
         else
         {
-            // 허공에 뗐으면 선 삭제
-            Destroy(currentLine.gameObject);
+            // 허공이면 마우스 끝을 자연스럽게 따라가게 합니다.
+            currentLine.SetPosition(1, worldPos);
         }
 
-        // 초기화
-        currentLine = null;
+        // 4. 마우스 왼쪽 버튼을 떼는 순간 감지
+        if (Mouse.current.leftButton.wasReleasedThisFrame)
+        {
+            EndDrawing();
+        }
+    }
+
+    private void EndDrawing()
+    {
+        isDrawing = false;
+
+        if (hoveredStar != null)
+        {
+            Debug.Log($"{startStar.starID}번 별과 {hoveredStar.starID}번 별 연결 완료!");
+            
+            // TODO: 나중에 여기에 ScriptableObject를 참조하여 "진짜 정답인지" 체크하는 로직이 들어갑니다.
+            
+            // 일단 연결 성공으로 간주하고 선을 유지합니다.
+            permanentLines.Add(currentLine);
+            currentLine = null; // 참조를 끊어서 다음 선을 그을 때 덮어씌워지지 않게 함
+        }
+        else
+        {
+            // 실패: 별이 아닌 허공에서 마우스를 뗐으므로 그리던 선을 삭제합니다.
+            Destroy(currentLine.gameObject);
+            currentLine = null;
+        }
+        
+        // 상태 초기화
         startStar = null;
+        hoveredStar = null;
     }
 }

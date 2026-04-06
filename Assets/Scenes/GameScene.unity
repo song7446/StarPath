@@ -519,7 +519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b01b6f2f5bbdc46a8771be7979cf63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConstellationManager
-  linePrefab: {fileID: 1204147687630559323, guid: 67e48f3b9c378b548884827f1b0f0297, type: 3}
+  linePrefab: {fileID: 3563384554973968426, guid: 67e48f3b9c378b548884827f1b0f0297, type: 3}
 --- !u!4 &180327185
 Transform:
   m_ObjectHideFlags: 0
