@@ -1,5 +1,14 @@
 public interface IInputState
 {
-    void OnClick();
-    void OnSpace();
+    void OnClick()
+    {
+    }
+
+    void OnRightClick()
+    {
+    }
+
+    void OnSpace()
+    {
+    }
 }

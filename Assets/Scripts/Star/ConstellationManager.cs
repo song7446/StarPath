@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using SongLib.Core.Singleton; // 작성하신 네임스페이스 추가
+using UnityEngine.InputSystem;
 
 public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
 {
@@ -19,8 +20,7 @@ public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
         // 선을 긋는 중이면 마우스를 따라가게 함
         if (currentLine != null && startStar != null)
         {
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePos.z = 0f; 
+            Vector2 mousePos = Mouse.current.position.ReadValue();
             currentLine.SetPosition(1, mousePos);
         }
     }

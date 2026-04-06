@@ -5,16 +5,15 @@ using Random = UnityEngine.Random;
 
 public class PuzzleStarSpawner : MonoBehaviour
 {
-    [Header("스폰 설정")] 
-    public Vector2 spawnAreaSize;
-    public float minDistance = 1.5f; // 별들 사이의 최소 거리 (이 값이 클수록 널널하게 배치됨)
-    public int maxSpawnAttempts = 30; // 무한루프 방지용 최대 시도 횟수
-    
-    public ConstellationData currentData; // 현재 풀 퍼즐 데이터
+    [Header("스폰 설정")] public Vector2 spawnAreaSize;
+    public float minDistance = 1.5f;
+    public int maxSpawnAttempts = 30;
+
+    public ConstellationData currentData;
     public GameObject constellationPrefab;
     public GameObject starPrefab;
-    public int fakeStarCount = 10; // 방해 별 개수
-    
+    public int fakeStarCount = 10;
+
     private List<Vector2> occupiedPositions = new List<Vector2>();
 
     private void Start()
@@ -25,14 +24,17 @@ public class PuzzleStarSpawner : MonoBehaviour
     public void SpawnStar()
     {
         occupiedPositions.Clear();
-        
+
+        // [수정 포인트 2] 정답 별자리 프리팹의 크기를 고려해서 중심점 배치 범위를 조금 더 좁게(/4f -> /6f 등) 설정하거나 여백(margin)을 줍니다.
+        // 프리팹이 클수록 이 범위를 좁혀야 기즈모 밖으로 튀어나가지 않습니다.
         Vector2 constellationCenter = new Vector2(
-            transform.position.x + Random.Range(-spawnAreaSize.x / 4f, spawnAreaSize.x / 4f), 
-            transform.position.y + Random.Range(-spawnAreaSize.y / 4f, spawnAreaSize.y / 4f)
+            transform.position.x + Random.Range(-spawnAreaSize.x / 6f, spawnAreaSize.x / 6f),
+            transform.position.y + Random.Range(-spawnAreaSize.y / 6f, spawnAreaSize.y / 6f)
         );
-        
-        GameObject constellationObj = Instantiate(constellationPrefab, constellationCenter, Quaternion.identity);
-        
+
+        GameObject constellationObj =
+            Instantiate(constellationPrefab, constellationCenter, Quaternion.identity, transform);
+
         foreach (Transform child in constellationObj.transform)
         {
             PuzzleStar star = child.GetComponent<PuzzleStar>();
@@ -41,60 +43,60 @@ public class PuzzleStarSpawner : MonoBehaviour
                 occupiedPositions.Add(child.position);
             }
         }
-        
+
         // 2. 방해 별 스폰
         for (int i = 0; i < fakeStarCount; i++)
         {
-            Vector2 validPos = GetValidRandomPos();
+            // [수정 포인트 1-A] Nullable(Vector2?)을 사용하여 실패 여부를 확실히 받음
+            Vector2? validPos = GetValidRandomPos();
 
-            // 유효한 위치를 찾았다면 스폰
-            if (validPos != Vector2.zero || occupiedPositions.Count == 0) // zero는 실패 처리용 (임시)
+            if (validPos.HasValue) // 값을 찾은 경우에만 스폰!
             {
-                Instantiate(starPrefab, validPos, Quaternion.identity);
-                occupiedPositions.Add(validPos); // 방금 스폰한 가짜 별의 위치도 '차지된 자리'로 등록
+                // validPos.Value로 실제 Vector2 값을 꺼내서 씁니다.
+                Instantiate(starPrefab, validPos.Value, Quaternion.identity, transform);
+                occupiedPositions.Add(validPos.Value);
             }
             else
             {
-                Debug.LogWarning("더 이상 별을 배치할 빈 공간이 없습니다! minDistance나 스폰 영역을 조절하세요.");
+                // 실패했다면 (0,0)에 스폰하지 않고 그냥 이 별은 스폰을 포기(또는 경고만)
+                Debug.LogWarning($"공간이 부족하여 {i + 1}번째 방해 별을 배치하지 못했습니다.");
             }
         }
     }
-    
-    private Vector2 GetValidRandomPos()
+
+    // [수정 포인트 1-B] 반환 타입을 Vector2에서 Vector2? (Nullable)로 변경
+    private Vector2? GetValidRandomPos()
     {
         for (int i = 0; i < maxSpawnAttempts; i++)
         {
-            // 영역 내에서 랜덤 좌표 하나 픽
             Vector2 randomPos = new Vector2(
                 transform.position.x + Random.Range(-spawnAreaSize.x / 2f, spawnAreaSize.x / 2f),
                 transform.position.y + Random.Range(-spawnAreaSize.y / 2f, spawnAreaSize.y / 2f)
             );
 
-            // 해당 좌표가 기존 별들과 너무 가깝지 않은지 검사
             if (IsPositionSafe(randomPos))
             {
-                return randomPos; // 안전하다면 바로 리턴!
+                return randomPos;
             }
         }
 
-        // maxSpawnAttempts 만큼 시도했는데도 못 찾았다면 Vector2.zero 리턴
-        return Vector2.zero; 
+        // 실패했을 때 Vector2.zero(0,0)가 아닌 null을 반환하여 완벽하게 실패를 알림
+        return null;
     }
 
-    // 모든 기존 별들과의 거리를 재서 안전한지 체크하는 함수
     private bool IsPositionSafe(Vector2 pos)
     {
         foreach (Vector2 occupiedPos in occupiedPositions)
         {
             if (Vector2.Distance(pos, occupiedPos) < minDistance)
             {
-                return false; // 하나라도 너무 가까운 별이 있으면 탈락
+                return false;
             }
         }
-        return true; // 모두 통과했다면 안전한 자리!
+
+        return true;
     }
 
-    // 유니티 에디터에서 스폰 영역을 시각적으로 보기 위한 기즈모
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;
