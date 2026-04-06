@@ -5,8 +5,8 @@ using Random = UnityEngine.Random;
 
 public class PuzzleStarSpawner : MonoBehaviour
 {
-    [Header("스폰 설정")]
-    public Vector2 spawnAreaSize = new Vector2(15f, 10f); // 별이 스폰될 전체 영역 크기
+    [Header("스폰 설정")] 
+    public Vector2 spawnAreaSize;
     public float minDistance = 1.5f; // 별들 사이의 최소 거리 (이 값이 클수록 널널하게 배치됨)
     public int maxSpawnAttempts = 30; // 무한루프 방지용 최대 시도 횟수
     
@@ -17,13 +17,18 @@ public class PuzzleStarSpawner : MonoBehaviour
     
     private List<Vector2> occupiedPositions = new List<Vector2>();
 
+    private void Start()
+    {
+        SpawnStar();
+    }
+
     public void SpawnStar()
     {
         occupiedPositions.Clear();
-        // 1. 정답 별 스폰 (SO에 정의된 개수만큼)
+        
         Vector2 constellationCenter = new Vector2(
-            Random.Range(-spawnAreaSize.x / 4f, spawnAreaSize.x / 4f), 
-            Random.Range(-spawnAreaSize.y / 4f, spawnAreaSize.y / 4f)
+            transform.position.x + Random.Range(-spawnAreaSize.x / 4f, spawnAreaSize.x / 4f), 
+            transform.position.y + Random.Range(-spawnAreaSize.y / 4f, spawnAreaSize.y / 4f)
         );
         
         GameObject constellationObj = Instantiate(constellationPrefab, constellationCenter, Quaternion.identity);
@@ -61,8 +66,8 @@ public class PuzzleStarSpawner : MonoBehaviour
         {
             // 영역 내에서 랜덤 좌표 하나 픽
             Vector2 randomPos = new Vector2(
-                Random.Range(-spawnAreaSize.x / 2f, spawnAreaSize.x / 2f),
-                Random.Range(-spawnAreaSize.y / 2f, spawnAreaSize.y / 2f)
+                transform.position.x + Random.Range(-spawnAreaSize.x / 2f, spawnAreaSize.x / 2f),
+                transform.position.y + Random.Range(-spawnAreaSize.y / 2f, spawnAreaSize.y / 2f)
             );
 
             // 해당 좌표가 기존 별들과 너무 가깝지 않은지 검사

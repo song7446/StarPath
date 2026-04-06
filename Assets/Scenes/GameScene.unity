@@ -630,6 +630,57 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &293179878
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 293179880}
+  - component: {fileID: 293179879}
+  m_Layer: 0
+  m_Name: PuzzleSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &293179879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293179878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e1d88c2e2a609340a5a265e517e8b4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuzzleStarSpawner
+  spawnAreaSize: {x: 17.7, y: 6}
+  minDistance: 1.5
+  maxSpawnAttempts: 30
+  currentData: {fileID: 11400000, guid: 2955cfafa86f7a3408d0118e12751500, type: 2}
+  constellationPrefab: {fileID: 3663502720236111122, guid: e1c1c87b5db2b7d489bd763ab5334e8d, type: 3}
+  starPrefab: {fileID: 6428178718610336857, guid: 4b6e035050e2eaf43958a23ae1158062, type: 3}
+  fakeStarCount: 10
+--- !u!4 &293179880
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293179878}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.98, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &354686866
 GameObject:
   m_ObjectHideFlags: 0
@@ -1768,11 +1819,12 @@ SceneRoots:
   - {fileID: 1472890168}
   - {fileID: 904182957}
   - {fileID: 414998012}
+  - {fileID: 293179880}
+  - {fileID: 155115106}
+  - {fileID: 904391276}
+  - {fileID: 731280644}
   - {fileID: 276693774}
   - {fileID: 1867839793}
   - {fileID: 942938287}
   - {fileID: 213058102}
   - {fileID: 180327185}
-  - {fileID: 155115106}
-  - {fileID: 904391276}
-  - {fileID: 731280644}
