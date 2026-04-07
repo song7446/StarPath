@@ -40,6 +40,7 @@ public class PuzzleStarSpawner : MonoBehaviour
             PuzzleStar star = child.GetComponent<PuzzleStar>();
             if (star != null)
             {
+                star.SetupStar(occupiedPositions.Count,true);
                 occupiedPositions.Add(child.position);
             }
         }
@@ -53,7 +54,9 @@ public class PuzzleStarSpawner : MonoBehaviour
             if (validPos.HasValue) // 값을 찾은 경우에만 스폰!
             {
                 // validPos.Value로 실제 Vector2 값을 꺼내서 씁니다.
-                Instantiate(starPrefab, validPos.Value, Quaternion.identity, transform);
+                GameObject starObj= Instantiate(starPrefab, validPos.Value, Quaternion.identity, transform);
+                PuzzleStar star = starObj.GetComponent<PuzzleStar>();
+                star.SetupStar(occupiedPositions.Count,true);
                 occupiedPositions.Add(validPos.Value);
             }
             else
