@@ -11,13 +11,12 @@ public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
 
     // 상태 추적용 변수들
     private LineRenderer currentLine;
-    private LineRenderer exLine;
     private PuzzleStar startStar;
     private PuzzleStar hoveredStar;
     private bool isDrawing = false;
 
     // 완성된 선들을 모아둘 리스트
-    private List<LineRenderer> permanentLines = new List<LineRenderer>();
+    private Stack<LineRenderer> permanentLines = new Stack<LineRenderer>();
 
     private void Awake()
     {
@@ -90,8 +89,7 @@ public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
             // TODO: 나중에 여기에 ScriptableObject를 참조하여 "진짜 정답인지" 체크하는 로직이 들어갑니다.
 
             // 일단 연결 성공으로 간주하고 선을 유지합니다.
-            permanentLines.Add(currentLine);
-            exLine = currentLine;
+            permanentLines.Push(currentLine);
             currentLine = null; // 참조를 끊어서 다음 선을 그을 때 덮어씌워지지 않게 함
         }
         else
@@ -108,10 +106,8 @@ public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
 
     public void CancelDrawing()
     {
-        if (exLine == null) return;
-        
-        Debug.Log("Cancel Drawing");
-        
-        Destroy(exLine.gameObject);
+        if (permanentLines.Count == 0) return;
+
+        Destroy(permanentLines.Pop());
     }
 }

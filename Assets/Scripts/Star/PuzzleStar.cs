@@ -18,6 +18,5 @@ public class PuzzleStar : MonoBehaviour,IInteractable
     public void OnInteract()
     {
         ConstellationManager.Instance.StartDrawing(this);
-        Debug.Log("Click");
     }
 }
