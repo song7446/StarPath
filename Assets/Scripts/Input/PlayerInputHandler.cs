@@ -23,5 +23,15 @@ public class PlayerInputHandler : MonoBehaviour
             inputState.OnSpace();
         }
     }
+    
+    public void OnRightClick(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        
+        if (GameStateMachine.Instance.GetCurrentState() is IInputState inputState)
+        {
+            inputState.OnRightClick();
+        }
+    }
 
 }

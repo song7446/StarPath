@@ -1,42 +1,41 @@
 using UnityEngine;
-using UnityEngine.InputSystem; // New Input System 사용
+using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using SongLib.Core.Singleton;
 
 public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
 {
     public static ConstellationManager Instance { get; private set; }
-    
-    [Header("선 긋기 설정")]
-    public LineRenderer linePrefab; // 에디터에서 연결할 선 프리팹
-    
+
+    [Header("선 긋기 설정")] public LineRenderer linePrefab; // 에디터에서 연결할 선 프리팹
+
     // 상태 추적용 변수들
     private LineRenderer currentLine;
+    private LineRenderer exLine;
     private PuzzleStar startStar;
     private PuzzleStar hoveredStar;
     private bool isDrawing = false;
-    
+
     // 완성된 선들을 모아둘 리스트
     private List<LineRenderer> permanentLines = new List<LineRenderer>();
 
-    private void Awake() 
-    { 
-        Instance = this; 
+    private void Awake()
+    {
+        Instance = this;
     }
 
-    // PuzzleStar의 OnInteract()에서 호출됨
     public void StartDrawing(PuzzleStar star)
     {
         isDrawing = true;
         startStar = star;
-        
+
         // 1. 새로운 선 생성
         currentLine = Instantiate(linePrefab, transform);
         currentLine.positionCount = 2; // 선의 점 개수 (시작점, 끝점)
-        
+
         // 2. 시작점(0)과 끝점(1)을 일단 클릭한 별의 위치로 고정
         currentLine.SetPosition(0, startStar.transform.position);
-        currentLine.SetPosition(1, startStar.transform.position); 
+        currentLine.SetPosition(1, startStar.transform.position);
     }
 
     private void Update()
@@ -55,7 +54,7 @@ public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
         {
             PuzzleStar star = hit.collider.GetComponent<PuzzleStar>();
             // 마우스 아래에 있는 게 별이고, 내가 처음 클릭한 시작 별이 아니라면?
-            if (star != null && star != startStar) 
+            if (star != null && star != startStar)
             {
                 hoveredStar = star;
             }
@@ -87,11 +86,12 @@ public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
         if (hoveredStar != null)
         {
             Debug.Log($"{startStar.starID}번 별과 {hoveredStar.starID}번 별 연결 완료!");
-            
+
             // TODO: 나중에 여기에 ScriptableObject를 참조하여 "진짜 정답인지" 체크하는 로직이 들어갑니다.
-            
+
             // 일단 연결 성공으로 간주하고 선을 유지합니다.
             permanentLines.Add(currentLine);
+            exLine = currentLine;
             currentLine = null; // 참조를 끊어서 다음 선을 그을 때 덮어씌워지지 않게 함
         }
         else
@@ -100,9 +100,18 @@ public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
             Destroy(currentLine.gameObject);
             currentLine = null;
         }
-        
+
         // 상태 초기화
         startStar = null;
         hoveredStar = null;
+    }
+
+    public void CancelDrawing()
+    {
+        if (exLine == null) return;
+        
+        Debug.Log("Cancel Drawing");
+        
+        Destroy(exLine.gameObject);
     }
 }
