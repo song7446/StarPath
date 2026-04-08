@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
@@ -17,6 +18,10 @@ public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
 
     // 완성된 선들을 모아둘 리스트
     private Stack<LineRenderer> permanentLines = new Stack<LineRenderer>();
+
+    private ConstellationData currentAnswerData;
+    public List<StarConnection> currentConnections = new List<StarConnection>();
+    StarConnection connection = new StarConnection();
 
     private void Awake()
     {
@@ -84,35 +89,109 @@ public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
 
         if (hoveredStar != null)
         {
+            // 수정 1: 전역 변수 재사용 금지! 매번 새로운 객체를 찍어내야 합니다.
+            StarConnection newConnection = new StarConnection();
+            newConnection.starA = startStar.starID;
+            newConnection.starB = hoveredStar.starID;
+
             Debug.Log($"{startStar.starID}번 별과 {hoveredStar.starID}번 별 연결 완료!");
 
-            // TODO: 나중에 여기에 ScriptableObject를 참조하여 "진짜 정답인지" 체크하는 로직이 들어갑니다.
-
-            // 일단 연결 성공으로 간주하고 선을 유지합니다.
-            permanentLines.Push(currentLine);
-            currentLine = null; // 참조를 끊어서 다음 선을 그을 때 덮어씌워지지 않게 함
+            // [추가 팁] 이미 그은 선(중복)이라면 무시하는 방어 로직
+            bool alreadyExists = currentConnections.Exists(c => c.IsSameConnection(newConnection.starA, newConnection.starB));
+            if (!alreadyExists)
+            {
+                currentConnections.Add(newConnection);
+                permanentLines.Push(currentLine);
+                
+                CheckAnswer(); // 정답 체크 실행
+            }
+            else
+            {
+                // 이미 연결된 선이면 방금 그은 시각적 선 파괴
+                Destroy(currentLine.gameObject);
+            }
         }
         else
         {
-            // 실패: 별이 아닌 허공에서 마우스를 뗐으므로 그리던 선을 삭제합니다.
+            // 아무 별에도 안 닿고 마우스를 뗐으면 선 파괴
             Destroy(currentLine.gameObject);
-            currentLine = null;
         }
+
+        currentLine = null; // 선 참조 초기화
 
         // 상태 초기화
         startStar = null;
         hoveredStar = null;
     }
 
+    private void CheckAnswer()
+    {
+        if (currentAnswerData == null || currentAnswerData.correctConnections == null) return;
+
+        bool isWrongLineDrawn = false;
+
+        // 1. 내가 그은 선들이 정답 데이터 안에 '존재하는 선'인지 검사
+        foreach (var drawnConn in currentConnections)
+        {
+            bool matchFound = false;
+            foreach (var answerConn in currentAnswerData.correctConnections)
+            {
+                // IsSameConnection이 방향 상관없이 같은 연결인지(A-B == B-A) 체크해준다고 가정합니다.
+                if (answerConn.IsSameConnection(drawnConn.starA, drawnConn.starB))
+                {
+                    matchFound = true;
+                    break;
+                }
+            }
+
+            // 정답에 없는 엄한 선을 그었다면 즉시 오답
+            if (!matchFound)
+            {
+                isWrongLineDrawn = true;
+                break;
+            }
+        }
+
+        // 2. 판정 결과 출력
+        if (isWrongLineDrawn)
+        {
+            Debug.Log("오답: 잘못된 연결이 포함되어 있습니다!");
+            // (선택) 여기서 모든 선을 초기화하거나, 플레이어에게 틀렸다는 피드백을 줄 수 있습니다.
+        }
+        else if (currentConnections.Count == currentAnswerData.correctConnections.Count)
+        {
+            // 잘못된 선도 없고, 그은 선의 개수도 정답과 똑같다면? (모양 완벽 일치!)
+            Debug.Log("★ 정답! 별자리를 완벽하게 완성했습니다! ★");
+            // TODO: 스테이지 클리어 이벤트 호출 (예: StageManager.Instance.StageClear();)
+        }
+        else
+        {
+            Debug.Log($"진행 중... ({currentConnections.Count}/{currentAnswerData.correctConnections.Count})");
+        }
+    }
+
     public void CancelDrawing()
     {
+        // 취소할 선이 없다면 리턴
         if (permanentLines.Count == 0) return;
 
-        Destroy(permanentLines.Pop());
+        // 수정 3: 화면에서 선을 파괴하는 것뿐만 아니라...
+        LineRenderer lineToRemove = permanentLines.Pop();
+        Destroy(lineToRemove.gameObject);
+
+        // 논리적 데이터(리스트)에서도 방금 그은 선을 똑같이 제거해야 데이터가 꼬이지 않습니다!
+        if (currentConnections.Count > 0)
+        {
+            currentConnections.RemoveAt(currentConnections.Count - 1);
+            Debug.Log("마지막 연결이 취소되었습니다.");
+        }
+        
+        // (선택) 선을 지운 후 잘못 그었던 상태가 풀렸을 수 있으니 정답 체크를 한 번 더 돌려줍니다.
+        CheckAnswer();
     }
 
     public void SetCurrentPuzzle(ConstellationData answerData)
     {
-        throw new System.NotImplementedException();
+        currentAnswerData = answerData;
     }
 }

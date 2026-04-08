@@ -36,7 +36,6 @@ public class ChapterManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        // 3. 씬이 넘어가거나 퍼즐이 끝났을 때 메모리에서 시원하게 해제! (메모리 누수 방지)
         AddressableManager.ReleaseAsset(currentStageAddress);
     }
 }

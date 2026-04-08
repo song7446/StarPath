@@ -40,7 +40,7 @@ public class PuzzleStarSpawner : MonoBehaviour
             PuzzleStar star = child.GetComponent<PuzzleStar>();
             if (star != null)
             {
-                star.SetupStar(occupiedPositions.Count,true);
+                star.SetupStar(occupiedPositions.Count + 1, true);
                 occupiedPositions.Add(child.position);
             }
         }
@@ -48,26 +48,22 @@ public class PuzzleStarSpawner : MonoBehaviour
         // 2. 방해 별 스폰
         for (int i = 0; i < fakeStarCount; i++)
         {
-            // [수정 포인트 1-A] Nullable(Vector2?)을 사용하여 실패 여부를 확실히 받음
             Vector2? validPos = GetValidRandomPos();
 
-            if (validPos.HasValue) // 값을 찾은 경우에만 스폰!
+            if (validPos.HasValue)
             {
-                // validPos.Value로 실제 Vector2 값을 꺼내서 씁니다.
-                GameObject starObj= Instantiate(starPrefab, validPos.Value, Quaternion.identity, transform);
+                GameObject starObj = Instantiate(starPrefab, validPos.Value, Quaternion.identity, transform);
                 PuzzleStar star = starObj.GetComponent<PuzzleStar>();
-                star.SetupStar(occupiedPositions.Count,true);
+                star.SetupStar(occupiedPositions.Count + 1, true);
                 occupiedPositions.Add(validPos.Value);
             }
             else
             {
-                // 실패했다면 (0,0)에 스폰하지 않고 그냥 이 별은 스폰을 포기(또는 경고만)
                 Debug.LogWarning($"공간이 부족하여 {i + 1}번째 방해 별을 배치하지 못했습니다.");
             }
         }
     }
 
-    // [수정 포인트 1-B] 반환 타입을 Vector2에서 Vector2? (Nullable)로 변경
     private Vector2? GetValidRandomPos()
     {
         for (int i = 0; i < maxSpawnAttempts; i++)
@@ -83,7 +79,6 @@ public class PuzzleStarSpawner : MonoBehaviour
             }
         }
 
-        // 실패했을 때 Vector2.zero(0,0)가 아닌 null을 반환하여 완벽하게 실패를 알림
         return null;
     }
 
