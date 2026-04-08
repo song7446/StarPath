@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Default Local Group
+  m_GUID: ba1c0def422a4104ca40e421665dd478
+  m_SerializeEntries:
+  - m_GUID: 2955cfafa86f7a3408d0118e12751500
+    m_Address: Chapter_1_Puzzle_So
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Constellation
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 57bd93a03f03e684bac29f365de85e77, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 00cc258014a7dbe4399293cd975fd5bf, type: 2}
+    - {fileID: 11400000, guid: b8a0a597943c6ad45bd5d71db8989330, type: 2}

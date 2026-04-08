@@ -110,4 +110,9 @@ public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
 
         Destroy(permanentLines.Pop());
     }
+
+    public void SetCurrentPuzzle(ConstellationData answerData)
+    {
+        throw new System.NotImplementedException();
+    }
 }
