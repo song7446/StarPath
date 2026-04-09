@@ -30,8 +30,6 @@ MonoBehaviour:
     starB: 9
   - starA: 6
     starB: 7
-  - starA: 6
-    starB: 8
   - starA: 7
     starB: 8
   - starA: 8
@@ -42,10 +40,10 @@ MonoBehaviour:
     starB: 10
   - starA: 10
     starB: 11
-  - starA: 10
-    starB: 13
   - starA: 11
     starB: 12
+  - starA: 11
+    starB: 13
   - starA: 13
     starB: 14
   - starA: 13
