@@ -142,7 +142,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!1 &1545939417989470183
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,7 +285,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!1 &1825025751876686009
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,7 +428,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!1 &2027677669606316419
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,7 +571,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!1 &2791646312218451336
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,7 +714,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!1 &3116464653910297664
 GameObject:
   m_ObjectHideFlags: 0
@@ -857,7 +857,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!1 &3155660419109218073
 GameObject:
   m_ObjectHideFlags: 0
@@ -1000,7 +1000,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!1 &3663502720236111122
 GameObject:
   m_ObjectHideFlags: 0
@@ -1190,7 +1190,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!1 &4445657368498013731
 GameObject:
   m_ObjectHideFlags: 0
@@ -1333,7 +1333,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!1 &6122009141776030930
 GameObject:
   m_ObjectHideFlags: 0
@@ -1476,7 +1476,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!1 &7125914480289069539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1619,7 +1619,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!1 &7761690015374095053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1762,7 +1762,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!1 &7985378094305474514
 GameObject:
   m_ObjectHideFlags: 0
@@ -1905,7 +1905,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!1 &8363779347310263153
 GameObject:
   m_ObjectHideFlags: 0
@@ -2048,7 +2048,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!1 &8520541999617263760
 GameObject:
   m_ObjectHideFlags: 0
@@ -2191,7 +2191,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!1 &9035377749505787931
 GameObject:
   m_ObjectHideFlags: 0
@@ -2334,4 +2334,4 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 1
