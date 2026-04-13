@@ -6,8 +6,6 @@ using SongLib.Core.Singleton;
 
 public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
 {
-    public static ConstellationManager Instance { get; private set; }
-
     [Header("선 긋기 설정")] public LineRenderer linePrefab; // 에디터에서 연결할 선 프리팹
 
     // 상태 추적용 변수들
@@ -22,12 +20,7 @@ public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
     private ConstellationData currentAnswerData;
     public List<StarConnection> currentConnections = new List<StarConnection>();
     StarConnection connection = new StarConnection();
-
-    private void Awake()
-    {
-        Instance = this;
-    }
-
+    
     public void StartDrawing(PuzzleStar star)
     {
         isDrawing = true;
@@ -163,6 +156,7 @@ public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
             // 잘못된 선도 없고, 그은 선의 개수도 정답과 똑같다면? (모양 완벽 일치!)
             Debug.Log("★ 정답! 별자리를 완벽하게 완성했습니다! ★");
             // TODO: 스테이지 클리어 이벤트 호출 (예: StageManager.Instance.StageClear();)
+            GameStateMachine.Instance.ChangeState<CutSceneState>();
         }
         else
         {
