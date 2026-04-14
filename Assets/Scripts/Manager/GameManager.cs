@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
-    public string CurrentChapterId = "Chapter_1_Front";
-
-    public void SetChapter(string chapterId)
-    {
-        CurrentChapterId = chapterId;
-        Debug.Log($"Enter Chapter: {chapterId}");
-    }
+    [SerializeField] public int CurrentChapterId = 1;
+    [SerializeField] public bool isFront = true;
 }

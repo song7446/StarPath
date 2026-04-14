@@ -70,12 +70,11 @@ public class DialogueManager : MonoBehaviourSingleton<DialogueManager>
     private void TryPlayDialogueAnimation(string dialogueId)
     {
         var repo = ChapterDataRepository.Instance;
-        if (repo == null || repo.chapterDefinitions == null)
+        if (repo == null || repo.currentChapterDefinitions == null)
             return;
         
-        var chapterId = GameManager.Instance.CurrentChapterId;
 
-        DialogueAnimationAsset[] animAssets = repo.chapterMap[chapterId].dialogueAnimations;
+        DialogueAnimationAsset[] animAssets = repo.currentChapterDefinitions.dialogueAnimations;
         foreach (var animAsset in animAssets)
         {
             if (animAsset.dialogueId == dialogueId)

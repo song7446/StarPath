@@ -6,7 +6,7 @@ using SongLib.Core.Singleton;
 
 public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
 {
-    [Header("선 긋기 설정")] public LineRenderer linePrefab; // 에디터에서 연결할 선 프리팹
+    [Header("선 긋기 설정")] public LineRenderer linePrefab;
 
     // 상태 추적용 변수들
     private LineRenderer currentLine;
@@ -19,7 +19,6 @@ public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
 
     private ConstellationData currentAnswerData;
     public List<StarConnection> currentConnections = new List<StarConnection>();
-    StarConnection connection = new StarConnection();
     
     public void StartDrawing(PuzzleStar star)
     {

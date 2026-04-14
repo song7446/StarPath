@@ -1,39 +1,38 @@
 using System;
 using System.Collections.Generic;
+using SongLib;
+using SongLib.Core.Singleton;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class PuzzleStarSpawner : MonoBehaviour
+public class StarSpawnManager : MonoBehaviourSingleton<StarSpawnManager>, IGameInitializer
 {
     [Header("스폰 설정")] public Vector2 spawnAreaSize;
     public float minDistance = 1.5f;
     public int maxSpawnAttempts = 30;
 
-    public ConstellationData currentData;
-    public GameObject constellationPrefab;
+    private GameObject _constellationPrefab;
     public GameObject starPrefab;
     public int fakeStarCount = 10;
 
     private List<Vector2> occupiedPositions = new List<Vector2>();
 
-    private void Start()
+    public void SetCurrentConstellation(ConstellationData data)
     {
-        SpawnStar();
+        _constellationPrefab = data.constellationPrefab;
     }
 
     public void SpawnStar()
     {
         occupiedPositions.Clear();
 
-        // [수정 포인트 2] 정답 별자리 프리팹의 크기를 고려해서 중심점 배치 범위를 조금 더 좁게(/4f -> /6f 등) 설정하거나 여백(margin)을 줍니다.
-        // 프리팹이 클수록 이 범위를 좁혀야 기즈모 밖으로 튀어나가지 않습니다.
         Vector2 constellationCenter = new Vector2(
             transform.position.x + Random.Range(-spawnAreaSize.x / 6f, spawnAreaSize.x / 6f),
             transform.position.y + Random.Range(-spawnAreaSize.y / 6f, spawnAreaSize.y / 6f)
         );
 
         GameObject constellationObj =
-            Instantiate(constellationPrefab, constellationCenter, Quaternion.identity, transform);
+            Instantiate(_constellationPrefab, constellationCenter, Quaternion.identity, transform);
 
         foreach (Transform child in constellationObj.transform)
         {
@@ -99,5 +98,11 @@ public class PuzzleStarSpawner : MonoBehaviour
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireCube(transform.position, spawnAreaSize);
+    }
+
+    public void Initialize(Action onCompleted)
+    {
+        SpawnStar();
+        onCompleted?.Invoke();
     }
 }

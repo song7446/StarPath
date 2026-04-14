@@ -50,4 +50,5 @@ MonoBehaviour:
     starB: 15
   - starA: 15
     starB: 16
+  constellationPrefab: {fileID: 3663502720236111122, guid: e1c1c87b5db2b7d489bd763ab5334e8d, type: 3}
   constellationGuideImage: {fileID: 0}

@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using SongLib;
 using SongLib.Core.Singleton;
 using UnityEngine;
 
 public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataRepository>, IGameInitializer
 {
-    [SerializeField] private TextAsset dialogueJson;
+    private TextAsset _dialogueJson;
 
     private Dictionary<string, DialogueRow> _dialogueMap;
     private List<DialogueRow> _dialogueList;
@@ -15,15 +16,20 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
     private List<DialogueRow> _currentChapterDialogues;
     private int _currentDialogueIdx;
     
+    public async Task LoadDialogueJsonSO()
+    {
+        _dialogueJson = await AddressableManager.LoadAssetAsync<TextAsset>(ScriptableObjectAddressManager.GetDialogueJsonAddress());
+    }
+    
     public void Initialize(Action onCompleted)
     {
-        if (dialogueJson == null)
+        if (_dialogueJson == null)
         {
             Debug.LogError("[DialogueDataRepository] Dialogue JSON is missing.");
             return;
         }
 
-        var database = JsonUtility.FromJson<DialogueDatabase>(dialogueJson.text);
+        var database = JsonUtility.FromJson<DialogueDatabase>(_dialogueJson.text);
         _dialogueMap = new Dictionary<string, DialogueRow>(database.dialogues.Length);
         _dialogueList = new List<DialogueRow>(database.dialogues.Length);
 
@@ -39,7 +45,7 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
             _dialogueList.Add(row);
         }
 
-        SetDialogue(GameManager.Instance.CurrentChapterId);
+        SetDialogue(ChapterDataRepository.Instance.currentChapterDefinitions.chapterId);
         
         onCompleted?.Invoke();
     }
@@ -47,7 +53,8 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
     public void SetDialogue(string chapterId)
     {
         var repo = ChapterDataRepository.Instance;
-        if (!repo.chapterMap.TryGetValue(chapterId, out var chapter))
+        
+        if (repo.currentChapterDefinitions == null)
         {
             Debug.LogError($"Chapter not found: {chapterId}");
             return;
@@ -56,19 +63,20 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
         _currentChapterDialogues = new List<DialogueRow>();
         _currentDialogueIdx = 0;
 
+        bool isMyChapter = false;
+
         foreach (var row in _dialogueList)
         {
             if (row.chapterId == chapterId)
             {
                 _currentChapterDialogues.Add(row);
+                isMyChapter = true;
             }
-            else
+            else if (isMyChapter)
             {
                 break;
             }
         }
-        
-        CutSceneManager.Instance.SetCurrentCast(repo.chapterMap[chapterId].cutSceneCasts);
 
         if (_currentChapterDialogues.Count == 0)
         {

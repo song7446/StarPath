@@ -9,7 +9,7 @@ public class CutSceneManager : MonoBehaviourSingleton<CutSceneManager>,IGameInit
     public List<GameObject> _spawnedCharacters = new();
     public List<GameObject> _spawnedObjects = new();
     
-    public CutSceneCast CurrentCast;
+    [SerializeField] public CutSceneCast CurrentCast;
 
     public void Initialize(Action onCompleted)
     {

@@ -21,5 +21,7 @@ public class ConstellationData : ScriptableObject
     [Header("정답 연결 리스트 (예: 1-2, 2-3, 3-4, 3-5)")]
     public List<StarConnection> correctConnections;
     
-    public Sprite constellationGuideImage; // 배경에 흐릿하게 보여줄 가이드 이미지 (선택)
+    public GameObject constellationPrefab;
+    
+    public Sprite constellationGuideImage;
 }

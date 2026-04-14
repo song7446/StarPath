@@ -15,11 +15,22 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: ba1c0def422a4104ca40e421665dd478
   m_SerializeEntries:
-  - m_GUID: 2955cfafa86f7a3408d0118e12751500
-    m_Address: Chapter_1_Puzzle_So
+  - m_GUID: 19893cf55edee6441ae9b6afce7a05b1
+    m_Address: dialogue
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5b8fcb333e8b83e4b8a49212fa1039cf
+    m_Address: Chapter_1_Back
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Constellation
+    - Chapter
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: be1a7c4520ae0904c866584d23c0e0b1
+    m_Address: Chapter_1_Front
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Chapter
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 57bd93a03f03e684bac29f365de85e77, type: 2}
