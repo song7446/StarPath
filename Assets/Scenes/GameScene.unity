@@ -520,6 +520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConstellationManager
   linePrefab: {fileID: 3563384554973968426, guid: 67e48f3b9c378b548884827f1b0f0297, type: 3}
+  currentConnections: []
 --- !u!4 &180327185
 Transform:
   m_ObjectHideFlags: 0
@@ -565,9 +566,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueDataRepository
   dialogueJson: {fileID: 4900000, guid: 19893cf55edee6441ae9b6afce7a05b1, type: 3}
-  chapterDefinitions:
-  - {fileID: 11400000, guid: be1a7c4520ae0904c866584d23c0e0b1, type: 2}
-  - {fileID: 11400000, guid: 5b8fcb333e8b83e4b8a49212fa1039cf, type: 2}
 --- !u!4 &213058102
 Transform:
   m_ObjectHideFlags: 0
@@ -576,7 +574,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 213058100}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -614,7 +612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CutSceneManager
   _spawnedCharacters: []
   _spawnedObjects: []
-  CurrentCast: {fileID: 0}
+  CurrentCast: {fileID: 11400000, guid: 1939500bde5fc7242b53cdaa95707485, type: 2}
 --- !u!4 &276693774
 Transform:
   m_ObjectHideFlags: 0
@@ -1649,6 +1647,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1705461232
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1705461233}
+  - component: {fileID: 1705461234}
+  m_Layer: 0
+  m_Name: ChapterRepository
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1705461233
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705461232}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1705461234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705461232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 987cb011d3b68a24ca932473b20443f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChapterDataRepository
+  chapterDefinitions:
+  - {fileID: 11400000, guid: be1a7c4520ae0904c866584d23c0e0b1, type: 2}
+  - {fileID: 11400000, guid: 5b8fcb333e8b83e4b8a49212fa1039cf, type: 2}
 --- !u!1 &1793962083
 GameObject:
   m_ObjectHideFlags: 0
@@ -1888,6 +1933,7 @@ SceneRoots:
   - {fileID: 276693774}
   - {fileID: 1867839793}
   - {fileID: 942938287}
-  - {fileID: 213058102}
   - {fileID: 180327185}
   - {fileID: 632974015}
+  - {fileID: 1705461233}
+  - {fileID: 213058102}

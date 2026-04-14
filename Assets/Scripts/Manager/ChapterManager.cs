@@ -1,8 +1,9 @@
 using System.Threading.Tasks;
 using SongLib;
+using SongLib.Core.Singleton;
 using UnityEngine;
 
-public class ChapterManager : MonoBehaviour
+public class ChapterManager : MonoBehaviourSingleton<ChapterManager>
 {
     [Header("이번 스테이지 어드레서블 주소")]
     // 아까 Groups 창에서 지어준 이름표(Address)를 똑같이 적어줍니다.

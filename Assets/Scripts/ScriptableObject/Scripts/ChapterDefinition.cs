@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Game/Chapter")]
@@ -8,4 +9,6 @@ public class ChapterDefinition : ScriptableObject
     [Header("Dialogue Animations")] public DialogueAnimationAsset[] dialogueAnimations;
     
     [Header("Characters")] public CutSceneCast cutSceneCasts;
+    
+    [Header("Constellation")] [CanBeNull] public ConstellationData constellationData;
 }

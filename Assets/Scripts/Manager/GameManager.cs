@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 {
     public string CurrentChapterId = "Chapter_1_Front";
 
-    public void EnterChapter(string chapterId)
+    public void SetChapter(string chapterId)
     {
         CurrentChapterId = chapterId;
         Debug.Log($"Enter Chapter: {chapterId}");

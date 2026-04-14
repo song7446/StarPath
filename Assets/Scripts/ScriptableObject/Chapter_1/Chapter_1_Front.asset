@@ -17,3 +17,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9e3064bf24ccb1f4ca2a137af8cc3db7, type: 2}
   - {fileID: 11400000, guid: fa1f47a18ed92d245b3fb3185ffe75e8, type: 2}
   cutSceneCasts: {fileID: 11400000, guid: 1939500bde5fc7242b53cdaa95707485, type: 2}
+  constellationData: {fileID: 11400000, guid: 2955cfafa86f7a3408d0118e12751500, type: 2}

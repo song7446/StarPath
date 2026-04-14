@@ -8,6 +8,7 @@ public class GameSceneEntryPoint : MonoBehaviour
         Bootstrapper _bootstrapper = new Bootstrapper();
 
         _bootstrapper
+            .Add(ChapterDataRepository.Instance)
             .Add(DialogueDataRepository.Instance)
             .Add(CutSceneManager.Instance)
             .Run(OnBootstrapFinished);

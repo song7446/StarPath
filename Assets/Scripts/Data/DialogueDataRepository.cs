@@ -15,9 +15,6 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
     private List<DialogueRow> _currentChapterDialogues;
     private int _currentDialogueIdx;
     
-    public List<ChapterDefinition> chapterDefinitions;
-    public Dictionary<string, ChapterDefinition> chapterMap;
-    
     public void Initialize(Action onCompleted)
     {
         if (dialogueJson == null)
@@ -41,21 +38,16 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
             _dialogueMap.Add(row.id, row);
             _dialogueList.Add(row);
         }
-        
-        chapterMap = new Dictionary<string, ChapterDefinition>();
-        foreach (var chapterDefinition in chapterDefinitions)
-        {
-            chapterMap.Add(chapterDefinition.chapterId, chapterDefinition);
-        }
 
-        SetChapter(GameManager.Instance.CurrentChapterId);
+        SetDialogue(GameManager.Instance.CurrentChapterId);
         
         onCompleted?.Invoke();
     }
     
-    public void SetChapter(string chapterId)
+    public void SetDialogue(string chapterId)
     {
-        if (!chapterMap.TryGetValue(chapterId, out var chapter))
+        var repo = ChapterDataRepository.Instance;
+        if (!repo.chapterMap.TryGetValue(chapterId, out var chapter))
         {
             Debug.LogError($"Chapter not found: {chapterId}");
             return;
@@ -76,21 +68,14 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
             }
         }
         
-        CutSceneManager.Instance.SetCurrentCast(chapterMap[chapterId].cutSceneCasts);
+        CutSceneManager.Instance.SetCurrentCast(repo.chapterMap[chapterId].cutSceneCasts);
 
         if (_currentChapterDialogues.Count == 0)
         {
             Debug.LogWarning($"No dialogues for chapter: {chapterId}");
         }
     }
-
-    public string GetNextChapterKey(string chapterId)
-    {
-        int index = chapterDefinitions.FindIndex(c => c.chapterId == chapterId);
-        
-        return index < chapterDefinitions.Count - 1 ? chapterDefinitions[index + 1].chapterId : null;
-    }
-
+    
     public DialogueRow GetDialogueRow(string id)
     {
         if (_dialogueMap.TryGetValue(id, out var row))
