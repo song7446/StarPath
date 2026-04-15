@@ -47,6 +47,10 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
 
         SetDialogue(ChapterDataRepository.Instance.currentChapterDefinitions.chapterId);
         
+        AddressableManager.ReleaseAsset(ScriptableObjectAddressManager.GetDialogueJsonAddress());
+        _dialogueJson = null; // 혹시 모를 참조를 막기 위해 null 처리
+        Debug.Log("대사 JSON 원본 메모리 해제 완료 (C# 캐싱 완료)");
+        
         onCompleted?.Invoke();
     }
     
