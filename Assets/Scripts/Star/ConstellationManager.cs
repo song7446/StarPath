@@ -154,8 +154,9 @@ public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
         {
             // 잘못된 선도 없고, 그은 선의 개수도 정답과 똑같다면? (모양 완벽 일치!)
             Debug.Log("★ 정답! 별자리를 완벽하게 완성했습니다! ★");
+
             // TODO: 스테이지 클리어 이벤트 호출 (예: StageManager.Instance.StageClear();)
-            GameStateMachine.Instance.ChangeState<CutSceneState>();
+			GameManager.Instance.EnterNextChapter();
         }
         else
         {

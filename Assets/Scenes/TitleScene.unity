@@ -979,8 +979,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807baf50c599b8848995053e18431e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  CurrentChapterId: 1
-  isFront: 1
+  CurrentChapterId: 0
+  isFront: 0
 --- !u!4 &1028684741
 Transform:
   m_ObjectHideFlags: 0

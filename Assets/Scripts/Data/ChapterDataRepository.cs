@@ -5,17 +5,12 @@ using SongLib;
 using SongLib.Core.Singleton;
 using UnityEngine;
 
-public class ChapterDataRepository : MonoBehaviourSingleton<ChapterDataRepository>, IGameInitializer
+public class ChapterDataRepository : MonoBehaviourSingleton<ChapterDataRepository>
 {
     [SerializeField] public ChapterDefinition currentChapterDefinitions;
     
     private string _currentChapterAddress;
     private string _lastLoadedAddress;
-    
-    public void Initialize(Action onCompleted)
-    {
-        onCompleted?.Invoke();
-    }
     
     public void SetCurrentChapterAddress(int address, bool isFront)
     {
@@ -31,7 +26,7 @@ public class ChapterDataRepository : MonoBehaviourSingleton<ChapterDataRepositor
             _lastLoadedAddress = null;
         }
         
-        Debug.Log("챕터 데이터 비동기 로딩 시작...");
+        Debug.Log($"{_currentChapterAddress} 챕터 데이터 비동기 로딩 시작...");
 
         // 1. SongLib의 어드레서블 매니저를 통해 SO 데이터를 비동기로 가져옴
         currentChapterDefinitions = await AddressableManager.LoadAssetAsync<ChapterDefinition>(_currentChapterAddress);
@@ -45,6 +40,7 @@ public class ChapterDataRepository : MonoBehaviourSingleton<ChapterDataRepositor
             
             CutSceneManager.Instance.SetCurrentCast(currentChapterDefinitions.cutSceneCasts);
             StarSpawnManager.Instance.SetCurrentConstellation(currentChapterDefinitions.constellationData);
+            ConstellationManager.Instance.SetCurrentPuzzle(currentChapterDefinitions.constellationData);
         }
     }
     

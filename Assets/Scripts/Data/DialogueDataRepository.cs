@@ -19,10 +19,7 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
     public async Task LoadDialogueJsonSO()
     {
         _dialogueJson = await AddressableManager.LoadAssetAsync<TextAsset>(ScriptableObjectAddressManager.GetDialogueJsonAddress());
-    }
-    
-    public void Initialize(Action onCompleted)
-    {
+        
         if (_dialogueJson == null)
         {
             Debug.LogError("[DialogueDataRepository] Dialogue JSON is missing.");
@@ -44,13 +41,17 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
             _dialogueMap.Add(row.id, row);
             _dialogueList.Add(row);
         }
-
-        SetDialogue(ChapterDataRepository.Instance.currentChapterDefinitions.chapterId);
         
         AddressableManager.ReleaseAsset(ScriptableObjectAddressManager.GetDialogueJsonAddress());
-        _dialogueJson = null; // 혹시 모를 참조를 막기 위해 null 처리
-        Debug.Log("대사 JSON 원본 메모리 해제 완료 (C# 캐싱 완료)");
         
+        _dialogueJson = null;
+        
+        Debug.Log("대사 JSON 원본 메모리 해제 완료 (C# 캐싱 완료)");
+    }
+    
+    public void Initialize(Action onCompleted)
+    {
+        SetDialogue(ChapterDataRepository.Instance.currentChapterDefinitions.chapterId);
         onCompleted?.Invoke();
     }
     
