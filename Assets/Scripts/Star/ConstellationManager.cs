@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using SongLib.Core.Singleton;
 
 public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
@@ -116,7 +117,7 @@ public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
         hoveredStar = null;
     }
 
-    private void CheckAnswer()
+    private async Task CheckAnswer()
     {
         if (currentAnswerData == null || currentAnswerData.correctConnections == null) return;
 
@@ -155,8 +156,8 @@ public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
             // 잘못된 선도 없고, 그은 선의 개수도 정답과 똑같다면? (모양 완벽 일치!)
             Debug.Log("★ 정답! 별자리를 완벽하게 완성했습니다! ★");
 
-            // TODO: 스테이지 클리어 이벤트 호출 (예: StageManager.Instance.StageClear();)
-			GameManager.Instance.EnterNextChapter();
+            //  TODO:스테이지 클리어 이벤트 호출
+			await GameManager.Instance.EnterNextChapter();
         }
         else
         {
@@ -179,9 +180,6 @@ public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
             currentConnections.RemoveAt(currentConnections.Count - 1);
             Debug.Log("마지막 연결이 취소되었습니다.");
         }
-        
-        // (선택) 선을 지운 후 잘못 그었던 상태가 풀렸을 수 있으니 정답 체크를 한 번 더 돌려줍니다.
-        CheckAnswer();
     }
 
     public void SetCurrentPuzzle(ConstellationData answerData)

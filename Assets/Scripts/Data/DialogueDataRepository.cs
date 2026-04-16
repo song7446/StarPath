@@ -51,7 +51,19 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
     
     public void Initialize(Action onCompleted)
     {
+        // ★ 방어 코드: 비동기 로딩 단계에서 리스트가 안 만들어졌다면?
+        if (_dialogueList == null || _dialogueList.Count == 0)
+        {
+            Debug.LogError("[DialogueDataRepository] 대사 리스트가 비어있습니다. LoadDialogueJsonSO가 실패했는지 확인하세요.");
+            
+            // 데이터가 없어도 부트스트래퍼가 다음 순서로 넘어가도록 완료 보고는 해줍니다.
+            onCompleted?.Invoke();
+            return;
+        }
+
+        // 안전하게 챕터 대사 필터링
         SetDialogue(ChapterDataRepository.Instance.currentChapterDefinitions.chapterId);
+        
         onCompleted?.Invoke();
     }
     
@@ -61,7 +73,7 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
         
         if (repo.currentChapterDefinitions == null)
         {
-            Debug.LogError($"Chapter not found: {chapterId}");
+            Debug.LogError($"[DialogueDataRepository] Chapter definitions not found for: {chapterId}");
             return;
         }
 
@@ -69,7 +81,7 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
         _currentDialogueIdx = 0;
 
         bool isMyChapter = false;
-
+        
         foreach (var row in _dialogueList)
         {
             if (row.chapterId == chapterId)
@@ -85,7 +97,7 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
 
         if (_currentChapterDialogues.Count == 0)
         {
-            Debug.LogWarning($"No dialogues for chapter: {chapterId}");
+            Debug.LogWarning($"[DialogueDataRepository] No dialogues found for chapter: {chapterId}");
         }
     }
     

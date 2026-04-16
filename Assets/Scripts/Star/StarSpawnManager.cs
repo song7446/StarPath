@@ -17,8 +17,23 @@ public class StarSpawnManager : MonoBehaviourSingleton<StarSpawnManager>, IGameI
 
     private List<Vector2> occupiedPositions = new List<Vector2>();
 
+    private List<GameObject> _spawnedStars = new List<GameObject>();
+    private GameObject _constellationObj;
+
+    public void Initialize(Action onCompleted)
+    {
+        SpawnStar();
+        onCompleted?.Invoke();
+    }
+
     public void SetCurrentConstellation(ConstellationData data)
     {
+        if (data == null)
+        {
+            Debug.LogError("전달받은 ConstellationData가 Null입니다! SO 세팅을 확인하세요.");
+            return;
+        }
+
         _constellationPrefab = data.constellationPrefab;
     }
 
@@ -31,10 +46,10 @@ public class StarSpawnManager : MonoBehaviourSingleton<StarSpawnManager>, IGameI
             transform.position.y + Random.Range(-spawnAreaSize.y / 6f, spawnAreaSize.y / 6f)
         );
 
-        GameObject constellationObj =
+        _constellationObj =
             Instantiate(_constellationPrefab, constellationCenter, Quaternion.identity, transform);
 
-        foreach (Transform child in constellationObj.transform)
+        foreach (Transform child in _constellationObj.transform)
         {
             PuzzleStar star = child.GetComponent<PuzzleStar>();
             if (star != null)
@@ -52,6 +67,7 @@ public class StarSpawnManager : MonoBehaviourSingleton<StarSpawnManager>, IGameI
             if (validPos.HasValue)
             {
                 GameObject starObj = Instantiate(starPrefab, validPos.Value, Quaternion.identity, transform);
+                _spawnedStars.Add(starObj);
                 PuzzleStar star = starObj.GetComponent<PuzzleStar>();
                 star.SetupStar(occupiedPositions.Count + 1, true);
                 occupiedPositions.Add(validPos.Value);
@@ -98,11 +114,5 @@ public class StarSpawnManager : MonoBehaviourSingleton<StarSpawnManager>, IGameI
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireCube(transform.position, spawnAreaSize);
-    }
-
-    public void Initialize(Action onCompleted)
-    {
-        SpawnStar();
-        onCompleted?.Invoke();
     }
 }
