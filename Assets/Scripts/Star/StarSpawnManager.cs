@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using SongLib;
 using SongLib.Core.Singleton;
 using UnityEngine;
@@ -108,6 +109,44 @@ public class StarSpawnManager : MonoBehaviourSingleton<StarSpawnManager>, IGameI
         }
 
         return true;
+    }
+
+    public async Task FadeOutAllStars(float duration = 1.0f)
+    {
+        List<SpriteRenderer> renderers = new List<SpriteRenderer>();
+
+        // 방해 별 수집
+        foreach (var star in _spawnedStars)
+        {
+            if (star != null)
+            {
+                var sr = star.GetComponent<SpriteRenderer>();
+                if (sr != null) renderers.Add(sr);
+            }
+        }
+
+        if (renderers.Count == 0) return;
+
+        // 2. duration(초) 동안 투명도를 1에서 0으로 서서히 줄입니다.
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(1.0f, 0.0f, elapsedTime / duration);
+
+            foreach (var sr in renderers)
+            {
+                if (sr != null)
+                {
+                    Color c = sr.color;
+                    c.a = alpha;
+                    sr.color = c;
+                }
+            }
+
+            // 다음 프레임까지 대기 (유니티가 멈추지 않게 함)
+            await Task.Yield();
+        }
     }
 
     private void OnDrawGizmosSelected()

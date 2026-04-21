@@ -15,4 +15,4 @@ MonoBehaviour:
   chapterId: Chapter_1_Back
   dialogueAnimations: []
   cutSceneCasts: {fileID: 11400000, guid: 512ea863382aaaf44938d2b007718379, type: 2}
-  constellationData: {fileID: 0}
+  constellationData: {fileID: 11400000, guid: 2955cfafa86f7a3408d0118e12751500, type: 2}
