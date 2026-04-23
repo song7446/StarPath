@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         {
             _bootstrapper.Add(StarSpawnManager.Instance);
         }
+        
+        await UITransition.Instance.OpenIris();
 
         // 4. [실행 페이즈] 모두 세팅되었으면 Run!
         _bootstrapper.Run(() => GameStateMachine.Instance.ChangeState<CutSceneState>());
