@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
-    private int CurrentChapterId = 0;
-    private bool isFront = false;
+    public int CurrentChapterId = 0;
+    public bool isFront = false;
 
     private Bootstrapper _bootstrapper = new Bootstrapper();
 
@@ -18,14 +18,14 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
             await StarSpawnManager.Instance.FadeOutAllStars();
         }
 
-        // 2. [데이터 페이즈] 챕터 ID 및 상태 갱신
+        // [데이터 페이즈] 챕터 ID 및 상태 갱신
         if (!isFront) CurrentChapterId++;
         isFront = !isFront;
-    
+
         ChapterDataRepository.Instance.SetCurrentChapterAddress(CurrentChapterId, isFront);
         await ChapterDataRepository.Instance.LoadCurrentChapterSO();
 
-        // 3. [초기화 페이즈] 부트스트래퍼 공통 세팅
+        // [초기화 페이즈] 부트스트래퍼 공통 세팅
         _bootstrapper = new Bootstrapper();
         Debug.Log($"부트스트래퍼 시작 (Chapter: {CurrentChapterId}, isFront: {isFront})");
 
@@ -39,10 +39,11 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         {
             _bootstrapper.Add(StarSpawnManager.Instance);
         }
+
+
+        // [실행 페이즈] 모두 세팅되었으면 Run!
+        _bootstrapper.Run(() => GameStateMachine.Instance.ChangeState<CutSceneState>());
         
         await UITransition.Instance.OpenIris();
-
-        // 4. [실행 페이즈] 모두 세팅되었으면 Run!
-        _bootstrapper.Run(() => GameStateMachine.Instance.ChangeState<CutSceneState>());
     }
 }

@@ -10,7 +10,7 @@ public class DialogueManager : MonoBehaviourSingleton<DialogueManager>
     private bool _isDialogueRunning;
 
     private string _dialogueText;
-    
+
     private void Update()
     {
         if (!_isDialogueRunning || _currentStrategy == null)
@@ -24,13 +24,13 @@ public class DialogueManager : MonoBehaviourSingleton<DialogueManager>
         if (DialogueDataRepository.Instance.GetNextDialogue(out var row))
         {
             _dialogueText = row.textKo;
-            
+
             TryPlayDialogueAnimation(row.id);
 
             // 👉 전략 선택 (지금은 Typewriter 고정)
             _currentStrategy = new TypewriterStrategy(dialogueTextTMP, 0.05f);
             _currentStrategy.Start(_dialogueText);
-            
+
             _isDialogueRunning = true;
         }
     }
@@ -63,7 +63,17 @@ public class DialogueManager : MonoBehaviourSingleton<DialogueManager>
         else
         {
             Debug.Log("Dialogue Finished");
-            GameStateMachine.Instance.ChangeState<GamePlayState>();
+
+            if (GameManager.Instance.isFront)
+            {
+                GameStateMachine.Instance.ChangeState<GamePlayState>();
+            }
+            else
+            {
+                UITransition.Instance.CloseIris();
+                
+                GameManager.Instance.EnterNextChapter();
+            }
         }
     }
 
@@ -72,7 +82,7 @@ public class DialogueManager : MonoBehaviourSingleton<DialogueManager>
         var repo = ChapterDataRepository.Instance;
         if (repo == null || repo.currentChapterDefinitions == null)
             return;
-        
+
 
         DialogueAnimationAsset[] animAssets = repo.currentChapterDefinitions.dialogueAnimations;
         foreach (var animAsset in animAssets)
