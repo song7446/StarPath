@@ -43,7 +43,10 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
         // [실행 페이즈] 모두 세팅되었으면 Run!
         _bootstrapper.Run(() => GameStateMachine.Instance.ChangeState<CutSceneState>());
-        
-        await UITransition.Instance.OpenIris();
+
+        if (isFront)
+        {
+            await UITransition.Instance.OpenIris();
+        }
     }
 }
