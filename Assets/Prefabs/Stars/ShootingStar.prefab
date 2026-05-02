@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2862773931855437538}
   - component: {fileID: 6068576917094679032}
   - component: {fileID: 291068152517424706}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ShootingStar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

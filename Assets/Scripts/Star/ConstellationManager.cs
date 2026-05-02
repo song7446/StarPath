@@ -41,7 +41,7 @@ public class ConstellationManager : MonoBehaviourSingleton<ConstellationManager>
 
         // 1. 마우스 월드 좌표 계산
         Vector2 mousePos = Mouse.current.position.ReadValue();
-        Vector2 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector2 worldPos = GameSceneUIManager.Instance.StarCamera.ScreenToWorldPoint(mousePos);
 
         // 2. 실시간 레이캐스트로 마우스 아래에 다른 별이 있는지 확인 (Hover 처리)
         RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);

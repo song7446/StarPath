@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3216314875039656304}
   - component: {fileID: 7339331974705820480}
   - component: {fileID: 1166497328306409724}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PuzzleStar8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 6468361290615451362}
   - component: {fileID: 1758473376652435972}
   - component: {fileID: 6487202930728381293}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PuzzleStar4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,7 +298,7 @@ GameObject:
   - component: {fileID: 3739454195153248794}
   - component: {fileID: 7523852902358845951}
   - component: {fileID: 1816445270856784535}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PuzzleStar11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -441,7 +441,7 @@ GameObject:
   - component: {fileID: 2927024723103553963}
   - component: {fileID: 3832569490753910875}
   - component: {fileID: 4514946847340692611}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PuzzleStar16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,7 +584,7 @@ GameObject:
   - component: {fileID: 3751584124611323381}
   - component: {fileID: 5957933587069706171}
   - component: {fileID: 6548691878631877237}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PuzzleStar3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -727,7 +727,7 @@ GameObject:
   - component: {fileID: 6037112063440025370}
   - component: {fileID: 3041925590614386969}
   - component: {fileID: 2876733191732113368}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PuzzleStar6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -870,7 +870,7 @@ GameObject:
   - component: {fileID: 37025659329924738}
   - component: {fileID: 6189145895108557355}
   - component: {fileID: 8163138836818268272}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PuzzleStar12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1010,7 +1010,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 687902632545486591}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: UrsaMajor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1060,7 +1060,7 @@ GameObject:
   - component: {fileID: 6464533649839906453}
   - component: {fileID: 3027644663738134044}
   - component: {fileID: 4356433790654638238}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PuzzleStar7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1203,7 +1203,7 @@ GameObject:
   - component: {fileID: 3225242315977984617}
   - component: {fileID: 6948418223920456682}
   - component: {fileID: 5565100515323498722}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PuzzleStar1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1346,7 +1346,7 @@ GameObject:
   - component: {fileID: 1014868237287269332}
   - component: {fileID: 6647832879998304728}
   - component: {fileID: 8686207932075133905}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PuzzleStar14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1489,7 +1489,7 @@ GameObject:
   - component: {fileID: 4102996081771961838}
   - component: {fileID: 2145632878384326883}
   - component: {fileID: 2312782352208865163}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PuzzleStar10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1632,7 +1632,7 @@ GameObject:
   - component: {fileID: 1727324862448267047}
   - component: {fileID: 6860937009623990027}
   - component: {fileID: 6222648202565587113}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PuzzleStar13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1775,7 +1775,7 @@ GameObject:
   - component: {fileID: 6549677421493694848}
   - component: {fileID: 290911231851958455}
   - component: {fileID: 2892596568313278197}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PuzzleStar15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1918,7 +1918,7 @@ GameObject:
   - component: {fileID: 5333954987456810830}
   - component: {fileID: 2137261593427240670}
   - component: {fileID: 1023042774694927948}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PuzzleStar9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2061,7 +2061,7 @@ GameObject:
   - component: {fileID: 8594554779138004793}
   - component: {fileID: 4996376021059959812}
   - component: {fileID: 3739081474303306320}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PuzzleStar2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2204,7 +2204,7 @@ GameObject:
   - component: {fileID: 8245807260742742597}
   - component: {fileID: 2242917349002636348}
   - component: {fileID: 200291583114388581}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PuzzleStar5
   m_TagString: Untagged
   m_Icon: {fileID: 0}

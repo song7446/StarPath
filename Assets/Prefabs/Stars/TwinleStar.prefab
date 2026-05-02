@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4061540927858506369}
   - component: {fileID: 8928541822128862266}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TwinleStarY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6647396391790400127}
   - component: {fileID: 787497470804952437}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TwinleStarX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 204142975706365085}
   - component: {fileID: 909306081938977986}
   - component: {fileID: 1259980353474080878}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TwinleStar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

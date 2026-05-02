@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 25914951762082228}
   - component: {fileID: 2135438797368906711}
   - component: {fileID: -688370374373682422}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PuzzleStar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

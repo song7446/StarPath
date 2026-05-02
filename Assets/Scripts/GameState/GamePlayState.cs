@@ -23,17 +23,13 @@ public class GamePlayState : IState, IInputState
 
     public void OnClick()
     {
-        // ❌ 문제의 원인: 기존 코드는 지워주세요!
-        // if (EventSystem.current.IsPointerOverGameObject()) return;
-
-        // ⭕ 해결책: 새로 만든 커스텀 함수를 호출합니다.
         if (IsPointerOverUI())
         {
             return; // UI를 클릭했다면 무시하고 종료
         }
 
         Vector2 mousePos = Mouse.current.position.ReadValue();
-        Vector2 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        Vector2 worldPos = GameSceneUIManager.Instance.StarCamera.ScreenToWorldPoint(mousePos);
         RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
 
         if (hit.collider != null)
