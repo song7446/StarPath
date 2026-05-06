@@ -15,7 +15,7 @@ public class GameSceneUIManager : MonoBehaviourSingleton<GameSceneUIManager>
     
     [SerializeField] private Button _cameraButton;
     
-    private bool _isSkyView = true;
+    private bool _isSkyView = false;
 
     private void Start()
     {

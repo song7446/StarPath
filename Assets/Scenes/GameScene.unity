@@ -1286,7 +1286,7 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 2048
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
@@ -1833,7 +1833,7 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
@@ -2040,7 +2040,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1472890168}
   - component: {fileID: 1472890167}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: StarVolume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2568,9 +2568,9 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras:
+  - {fileID: 975455405}
   - {fileID: 53947636}
   - {fileID: 1397460594}
-  - {fileID: 975455405}
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
