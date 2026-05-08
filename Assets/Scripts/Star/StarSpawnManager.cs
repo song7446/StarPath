@@ -23,13 +23,18 @@ public class StarSpawnManager : MonoBehaviourSingleton<StarSpawnManager>, IGameI
     public int maxSpawnAttempts = 30; // 💡 (참고: 이제 포아송과 뭉치기 로직이 생겨서 잘 안 쓰이지만, 안전장치로 남겨둠)
     public GameObject starPrefab;
 
-    [Header("카메라 세팅")] [SerializeField] private CinemachineCamera ccStarSkyCamera; // 진짜 별(정답) 카메라 (빨간 박스)
+    [Header("카메라 세팅")] 
+    [SerializeField] private CinemachineCamera ccStarSkyCamera; // 진짜 별(정답) 카메라 (빨간 박스)
     [SerializeField] private CinemachineCamera ccStarGroundCamera; // 가짜 별(방해) 카메라 (노란 박스)
 
     private GameObject _constellationPrefab;
     private GameObject _constellationObj;
     private List<GameObject> _spawnedStars = new List<GameObject>();
     private List<Vector2> occupiedPositions = new List<Vector2>();
+    
+    [Header("스폰 영역 설정")]
+    [Tooltip("화면 가장자리에서 별이 생성되지 않도록 띄우는 여백 (예: 1.0)")]
+    public float edgePadding = 1.0f; // 💡 이 수치를 키우면 도화지가 더 안쪽으로 쪼그라듭니다.
 
     [Header("방해 별 동적 세팅")] [Tooltip("정답 별자리 간격에 곱할 가중치 (1.0 = 동일, 0.9 = 약간 더 촘촘함)")]
     public float spacingMultiplier;
@@ -46,18 +51,23 @@ public class StarSpawnManager : MonoBehaviourSingleton<StarSpawnManager>, IGameI
     [Tooltip("정답 별자리 주변에 찰싹 붙여서 모양을 숨길 가짜 별의 개수")]
     public int localCamouflageCount;
 
-    public Rect ConstellationArea
+    public Rect ConstellationArea 
     {
-        get
+        get 
         {
             if (ccStarSkyCamera == null) return Rect.zero;
-
+            
             float ortho = ccStarSkyCamera.Lens.OrthographicSize;
             float height = ortho * 2f;
             float width = height * (16f / 9f);
-
+            
             Vector2 pos = ccStarSkyCamera.transform.position;
-            return new Rect(pos.x - (width / 2f), pos.y - (height / 2f), width, height);
+
+            // 💡 1. 양옆, 위아래로 edgePadding만큼 깎아낸 새로운 가로/세로 길이 계산
+            float paddedWidth = Mathf.Max(0, width - (edgePadding * 2f));
+            float paddedHeight = Mathf.Max(0, height - (edgePadding * 2f));
+            
+            return new Rect(pos.x - (paddedWidth / 2f), pos.y - (paddedHeight / 2f), paddedWidth, paddedHeight);
         }
     }
 
@@ -68,13 +78,24 @@ public class StarSpawnManager : MonoBehaviourSingleton<StarSpawnManager>, IGameI
             if (ccStarGroundCamera == null || ccStarSkyCamera == null) return Rect.zero;
 
             float ortho = ccStarGroundCamera.Lens.OrthographicSize;
-            float width = ortho * 2f * (16f / 9f);
+            float height = ortho * 2f;
+            float width = height * (16f / 9f);
+            
+            // 💡 2. 노란 박스도 좌우 여백 적용
+            float paddedWidth = Mathf.Max(0, width - (edgePadding * 2f));
+            
+            // 바닥은 빨간 박스의 바닥(이미 패딩 적용됨)을 그대로 사용
+            float redBottomY = ConstellationArea.yMin; 
+            
+            // 천장(Top)은 원래 높이에서 패딩만큼 아래로 끌어내림
+            float yellowTopY = ccStarGroundCamera.transform.position.y + (height / 2f) - edgePadding;
+            
+            // 왼쪽 시작점은 줄어든 너비의 절반만큼 이동
+            float yellowLeftX = ccStarGroundCamera.transform.position.x - (paddedWidth / 2f);
 
-            float redBottomY = ConstellationArea.yMin;
-            float yellowTopY = ccStarGroundCamera.transform.position.y + ortho;
-            float yellowLeftX = ccStarGroundCamera.transform.position.x - (width / 2f);
+            float paddedHeight = Mathf.Max(0, yellowTopY - redBottomY);
 
-            return new Rect(yellowLeftX, redBottomY, width, yellowTopY - redBottomY);
+            return new Rect(yellowLeftX, redBottomY, paddedWidth, paddedHeight);
         }
     }
 
