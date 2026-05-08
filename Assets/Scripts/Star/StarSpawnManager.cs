@@ -127,6 +127,25 @@ public class StarSpawnManager : MonoBehaviourSingleton<StarSpawnManager>, IGameI
             }
         }
     }
+    
+    public Rect PanLimitArea
+    {
+        get
+        {
+            if (ccStarGroundCamera == null || ccStarSkyCamera == null) return Rect.zero;
+
+            float ortho = ccStarGroundCamera.Lens.OrthographicSize;
+            float height = ortho * 2f;
+            float width = height * (16f / 9f);
+            
+            // edgePadding으로 깎아내기 전의 오리지널 화면 가장자리 좌표들
+            float pureBottomY = ccStarSkyCamera.transform.position.y - ccStarSkyCamera.Lens.OrthographicSize; 
+            float pureTopY = ccStarGroundCamera.transform.position.y + (height / 2f);
+            float pureLeftX = ccStarGroundCamera.transform.position.x - (width / 2f);
+
+            return new Rect(pureLeftX, pureBottomY, width, pureTopY - pureBottomY);
+        }
+    }
 
     public void Initialize(Action onCompleted)
     {

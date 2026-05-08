@@ -15,7 +15,7 @@ public class GameSceneUIManager : MonoBehaviourSingleton<GameSceneUIManager>
     
     [SerializeField] private Button _cameraButton;
     
-    private bool _isSkyView = false;
+    public bool IsSkyView = false;
 
     private void Start()
     {
@@ -34,9 +34,9 @@ public class GameSceneUIManager : MonoBehaviourSingleton<GameSceneUIManager>
     public void ToggleCameraView()
     {
         // 💡 버튼을 누를 때마다 상태를 반대로 뒤집음 (true -> false, false -> true)
-        _isSkyView = !_isSkyView; 
+        IsSkyView = !IsSkyView; 
 
-        if (_isSkyView)
+        if (IsSkyView)
         {
             // [하늘 뷰로 올라갈 때]
             ccSky.Priority = 20;
