@@ -790,12 +790,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e1d88c2e2a609340a5a265e517e8b4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzleStarSpawner
-  minDistance: 1.5
-  maxSpawnAttempts: 30
-  fakeStarCount: 50
+  currentSpawnMode: 2
+  maxSpawnAttempts: 50
   starPrefab: {fileID: 6428178718610336857, guid: 4b6e035050e2eaf43958a23ae1158062, type: 3}
   ccStarSkyCamera: {fileID: 1597844662}
   ccStarGroundCamera: {fileID: 1120413608}
+  spacingMultiplier: 0.9
+  minSpacingLimit: 1.2
+  maxSpacingLimit: 3
+  fakeStarCount: 30
+  localCamouflageCount: 10
 --- !u!4 &293179880
 Transform:
   m_ObjectHideFlags: 0
@@ -1406,7 +1410,7 @@ Transform:
   m_GameObject: {fileID: 975455402}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: -10}
+  m_LocalPosition: {x: 0, y: -4, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1699,7 +1703,7 @@ Transform:
   m_GameObject: {fileID: 1120413607}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: -10}
+  m_LocalPosition: {x: 0, y: -4, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
