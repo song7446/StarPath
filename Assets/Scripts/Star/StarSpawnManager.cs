@@ -14,10 +14,18 @@ public enum FakeStarMode
     Global // 후반부: 맵 전체에 포아송으로 흩뿌리기
 }
 
+public enum ConstellationScope
+{
+    SkyAreaOnly,    // 기존: 하늘 카메라(좁은 구역) 안에서만 스폰
+    WholeGroundArea // 확장: 땅 카메라(넓은 구역) 전체에서 스폰 (카메라 패닝 필요)
+}
+
 public class StarSpawnManager : MonoBehaviourSingleton<StarSpawnManager>, IGameInitializer
 {
     [Header("난이도 설정")] [Tooltip("현재 스테이지에 맞는 스폰 모드를 선택하세요.")]
     public FakeStarMode currentSpawnMode = FakeStarMode.Cluster;
+    [Tooltip("정답 별자리가 스폰될 범위를 선택하세요 (좁은 하늘 vs 넓은 땅 전체)")]
+    public ConstellationScope constellationScope = ConstellationScope.SkyAreaOnly;
 
     [Header("스폰 설정")] 
     public int maxSpawnAttempts = 30; // 💡 (참고: 이제 포아송과 뭉치기 로직이 생겨서 잘 안 쓰이지만, 안전장치로 남겨둠)
@@ -51,7 +59,10 @@ public class StarSpawnManager : MonoBehaviourSingleton<StarSpawnManager>, IGameI
     [Tooltip("정답 별자리 주변에 찰싹 붙여서 모양을 숨길 가짜 별의 개수")]
     public int localCamouflageCount;
 
-    public Rect ConstellationArea 
+    // ---------------------------------------------------
+    // 💡 1. 순수 하늘 카메라 영역 (모든 계산의 기준이 되는 베이스 캠프)
+    // ---------------------------------------------------
+    private Rect SkyCameraRect 
     {
         get 
         {
@@ -63,7 +74,6 @@ public class StarSpawnManager : MonoBehaviourSingleton<StarSpawnManager>, IGameI
             
             Vector2 pos = ccStarSkyCamera.transform.position;
 
-            // 💡 1. 양옆, 위아래로 edgePadding만큼 깎아낸 새로운 가로/세로 길이 계산
             float paddedWidth = Mathf.Max(0, width - (edgePadding * 2f));
             float paddedHeight = Mathf.Max(0, height - (edgePadding * 2f));
             
@@ -71,6 +81,9 @@ public class StarSpawnManager : MonoBehaviourSingleton<StarSpawnManager>, IGameI
         }
     }
 
+    // ---------------------------------------------------
+    // 💡 2. 가짜 별(노란 박스) 영역 - 하늘 카메라 바닥을 기준으로 아래가 잘린 모양
+    // ---------------------------------------------------
     public Rect FakeStarArea
     {
         get
@@ -81,21 +94,37 @@ public class StarSpawnManager : MonoBehaviourSingleton<StarSpawnManager>, IGameI
             float height = ortho * 2f;
             float width = height * (16f / 9f);
             
-            // 💡 2. 노란 박스도 좌우 여백 적용
             float paddedWidth = Mathf.Max(0, width - (edgePadding * 2f));
             
-            // 바닥은 빨간 박스의 바닥(이미 패딩 적용됨)을 그대로 사용
-            float redBottomY = ConstellationArea.yMin; 
+            // 바닥은 항상 '순수 하늘 카메라'의 바닥을 기준으로 자릅니다! (순환 참조 방지)
+            float redBottomY = SkyCameraRect.yMin; 
             
-            // 천장(Top)은 원래 높이에서 패딩만큼 아래로 끌어내림
             float yellowTopY = ccStarGroundCamera.transform.position.y + (height / 2f) - edgePadding;
-            
-            // 왼쪽 시작점은 줄어든 너비의 절반만큼 이동
             float yellowLeftX = ccStarGroundCamera.transform.position.x - (paddedWidth / 2f);
 
             float paddedHeight = Mathf.Max(0, yellowTopY - redBottomY);
 
             return new Rect(yellowLeftX, redBottomY, paddedWidth, paddedHeight);
+        }
+    }
+
+    // ---------------------------------------------------
+    // 💡 3. 진짜 별자리(빨간 박스) 영역 - 모드에 따라 변신!
+    // ---------------------------------------------------
+    public Rect ConstellationArea 
+    {
+        get 
+        {
+            // 전체 범위를 선택했다면? -> 아까 예쁘게 잘라둔 '노란 박스' 영역을 그대로 씁니다!
+            if (constellationScope == ConstellationScope.WholeGroundArea)
+            {
+                return FakeStarArea;
+            }
+            // 좁은 하늘 범위를 선택했다면? -> 원래대로 순수 하늘 카메라 영역을 씁니다!
+            else
+            {
+                return SkyCameraRect;
+            }
         }
     }
 

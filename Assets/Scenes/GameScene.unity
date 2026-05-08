@@ -791,10 +791,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzleStarSpawner
   currentSpawnMode: 2
+  constellationScope: 1
   maxSpawnAttempts: 50
   starPrefab: {fileID: 6428178718610336857, guid: 4b6e035050e2eaf43958a23ae1158062, type: 3}
   ccStarSkyCamera: {fileID: 1597844662}
   ccStarGroundCamera: {fileID: 1120413608}
+  edgePadding: 1
   spacingMultiplier: 0.9
   minSpacingLimit: 1.2
   maxSpacingLimit: 3
