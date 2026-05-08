@@ -156,17 +156,37 @@ public class StarSpawnManager : MonoBehaviourSingleton<StarSpawnManager>, IGameI
         occupiedPositions.Clear();
 
         // ---------------------------------------------------
-        // 1. 진짜 별 스폰 (빨간 영역) - 항상 실행됨
+        // 1. 진짜 별 스폰 (빨간 영역)
         // ---------------------------------------------------
-        Rect skyRect = ConstellationArea;
+        Rect skyRect = ConstellationArea; 
 
+        // 💡 핵심: X축(좌우)과 Y축(상하)의 여백 비율을 분리합니다!
+        float marginDividerX;
+        float marginDividerY;
+
+        if (constellationScope == ConstellationScope.WholeGroundArea)
+        {
+            // 넓은 범위일 때
+            // X축: 2.2f -> 2.5f (양옆으로 조금 더 여백을 줘서 짤림 방지)
+            marginDividerX = 2.5f; 
+            
+            // Y축: 2.2f -> 4.0f (위아래 범위를 확 좁혀서 밑으로 삐져나가는 것 완벽 차단)
+            marginDividerY = 4.0f; 
+        }
+        else
+        {
+            // 좁은 하늘일 때는 기존처럼 정중앙에 모이게 세팅
+            marginDividerX = 6.0f;
+            marginDividerY = 6.0f;
+        }
+        
         Vector2 constellationCenter = new Vector2(
-            skyRect.center.x + Random.Range(-skyRect.width / 6f, skyRect.width / 6f),
-            skyRect.center.y + Random.Range(-skyRect.height / 6f, skyRect.height / 6f)
+            skyRect.center.x + Random.Range(-skyRect.width / marginDividerX, skyRect.width / marginDividerX),
+            skyRect.center.y + Random.Range(-skyRect.height / marginDividerY, skyRect.height / marginDividerY)
         );
 
         _constellationObj = Instantiate(_constellationPrefab, constellationCenter, Quaternion.identity, transform);
-
+        
         foreach (Transform child in _constellationObj.transform)
         {
             PuzzleStar star = child.GetComponent<PuzzleStar>();
