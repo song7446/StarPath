@@ -21,7 +21,11 @@ public class ConstellationUI : MonoBehaviour
         }
         
         GuideImage.sprite = constellationData.constellationGuideImage;
-        GuideText.text = constellationData.constellationId;
+
+        ConstellationRow text =
+            ConstellationDataRepository.Instance.GetConstellationRow(constellationData.constellationId);
+        
+        GuideText.text = text.Name_Kr;
         
         GuidePanel.SetActive(true);
     }
