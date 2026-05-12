@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using SongLib;
 using UnityEngine;
 
-public class DialogueSheetSaver : ISheetJsonParser
+public class ConstellationSheetSaver : ISheetJsonParser
 { 
     public string Parse(string csv)
     {
         csv = csv.Replace("\uFEFF", "");
 
         var lines = csv.Split('\n');
-        var list = new List<DialogueRow>();
+        var list = new List<ConstellationRow>();
 
         for (int i = 1; i < lines.Length; i++) // 헤더 스킵
         {
@@ -22,20 +22,20 @@ public class DialogueSheetSaver : ISheetJsonParser
             if (cols.Length < 4)
                 continue;
 
-            list.Add(new DialogueRow
+            list.Add(new ConstellationRow
             {
                 Id = cols[0].Trim(),
-                ChapterId = cols[1].Trim(),
-                Speaker = cols[2].Trim(),
-                TextKo = cols[3].Trim(),
-                TextEn = cols[4].Trim()
+                Name_Kr = cols[1].Trim(),
+                Explain_Kr = cols[2].Trim(),
+                Name_En = cols[3].Trim(),
+                Explain_En = cols[4].Trim()
             });
         }
 
-        Debug.Log($"✅ Parsed Dialogue Count: {list.Count}");
+        Debug.Log($"✅ Parsed Constellation Count: {list.Count}");
 
         return JsonUtility.ToJson(
-            new DialogueDatabase { Dialogues = list.ToArray() },
+            new ConstellationDatabase() { Constellations = list.ToArray() },
             true
         );
     }

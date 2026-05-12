@@ -16,7 +16,7 @@ MonoBehaviour:
   m_GUID: ba1c0def422a4104ca40e421665dd478
   m_SerializeEntries:
   - m_GUID: 19893cf55edee6441ae9b6afce7a05b1
-    m_Address: dialogue
+    m_Address: DialogueData
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -25,6 +25,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Chapter
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 68b3a87d6d9896c41b8dc3d5f2d1640b
+    m_Address: ConstellationData
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: be1a7c4520ae0904c866584d23c0e0b1
     m_Address: Chapter_1_Front

@@ -1,15 +1,15 @@
 [System.Serializable]
 public class DialogueRow
 {
-    public string id;
-    public string chapterId;
-    public string speaker;
-    public string textKo;
-    public string textEn;
+    public string Id;
+    public string ChapterId;
+    public string Speaker;
+    public string TextKo;
+    public string TextEn;
 }
 
 [System.Serializable]
 public class DialogueDatabase
 {
-    public DialogueRow[] dialogues;
+    public DialogueRow[] Dialogues;
 }

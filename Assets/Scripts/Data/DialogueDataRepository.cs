@@ -27,18 +27,18 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
         }
 
         var database = JsonUtility.FromJson<DialogueDatabase>(_dialogueJson.text);
-        _dialogueMap = new Dictionary<string, DialogueRow>(database.dialogues.Length);
-        _dialogueList = new List<DialogueRow>(database.dialogues.Length);
+        _dialogueMap = new Dictionary<string, DialogueRow>(database.Dialogues.Length);
+        _dialogueList = new List<DialogueRow>(database.Dialogues.Length);
 
-        foreach (var row in database.dialogues)
+        foreach (var row in database.Dialogues)
         {
-            if (_dialogueMap.ContainsKey(row.id))
+            if (_dialogueMap.ContainsKey(row.Id))
             {
-                Debug.LogWarning($"[DialogueDataRepository] Duplicate dialogue id: {row.id}");
+                Debug.LogWarning($"[DialogueDataRepository] Duplicate dialogue id: {row.Id}");
                 continue;
             }
 
-            _dialogueMap.Add(row.id, row);
+            _dialogueMap.Add(row.Id, row);
             _dialogueList.Add(row);
         }
         
@@ -84,7 +84,7 @@ public class DialogueDataRepository : MonoBehaviourSingleton<DialogueDataReposit
         
         foreach (var row in _dialogueList)
         {
-            if (row.chapterId == chapterId)
+            if (row.ChapterId == chapterId)
             {
                 _currentChapterDialogues.Add(row);
                 isMyChapter = true;

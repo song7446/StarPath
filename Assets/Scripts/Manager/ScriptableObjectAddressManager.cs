@@ -11,6 +11,11 @@ public static class ScriptableObjectAddressManager
     
     public static string GetDialogueJsonAddress()
     {
-        return "dialogue";
+        return "DialogueData";
+    }
+    
+    public static string GetConstellationAddress()
+    {
+        return "ConstellationData";
     }
 }

@@ -23,9 +23,9 @@ public class DialogueManager : MonoBehaviourSingleton<DialogueManager>
     {
         if (DialogueDataRepository.Instance.GetNextDialogue(out var row))
         {
-            _dialogueText = row.textKo;
+            _dialogueText = row.TextKo;
 
-            TryPlayDialogueAnimation(row.id);
+            TryPlayDialogueAnimation(row.Id);
 
             // 👉 전략 선택 (지금은 Typewriter 고정)
             _currentStrategy = new TypewriterStrategy(dialogueTextTMP, 0.05f);
@@ -55,8 +55,8 @@ public class DialogueManager : MonoBehaviourSingleton<DialogueManager>
 
         if (DialogueDataRepository.Instance.GetNextDialogue(out var row))
         {
-            _dialogueText = row.textKo;
-            TryPlayDialogueAnimation(row.id);
+            _dialogueText = row.TextKo;
+            TryPlayDialogueAnimation(row.Id);
             _currentStrategy.Start(_dialogueText);
             _isDialogueRunning = true;
         }

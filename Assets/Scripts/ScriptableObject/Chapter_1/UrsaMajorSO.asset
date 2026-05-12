@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 935ba046b21b2f040bab01fd966e51de, type: 3}
   m_Name: UrsaMajorSO
   m_EditorClassIdentifier: Assembly-CSharp::ConstellationData
-  constellationId: Const_Name_01
+  constellationId: Constellation_01
   correctConnections:
   - starA: 1
     starB: 2
