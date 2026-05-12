@@ -9,7 +9,7 @@ public class TitleSceneEntryPoint : MonoBehaviour
 
         _bootstrapper
             .Add(GameStateMachine.Instance)
-            .Add(UIManager.Instance.titleUI)
+            .Add(TitleSceneUIManager.Instance.titleUI)
             .Run(OnBootstrapFinished);
         Destroy(this);
     }

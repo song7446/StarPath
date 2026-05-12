@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 935ba046b21b2f040bab01fd966e51de, type: 3}
   m_Name: UrsaMajorSO
   m_EditorClassIdentifier: Assembly-CSharp::ConstellationData
-  constellationName: UsraMajor
+  constellationId: Const_Name_01
   correctConnections:
   - starA: 1
     starB: 2
@@ -51,4 +51,4 @@ MonoBehaviour:
   - starA: 15
     starB: 16
   constellationPrefab: {fileID: 3663502720236111122, guid: e1c1c87b5db2b7d489bd763ab5334e8d, type: 3}
-  constellationGuideImage: {fileID: 0}
+  constellationGuideImage: {fileID: -1273960732, guid: 57a4e237c716efd42856a26e36255e4e, type: 3}

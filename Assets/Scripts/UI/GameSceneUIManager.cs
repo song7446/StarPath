@@ -1,9 +1,11 @@
+using System;
+using SongLib;
 using SongLib.Core.Singleton;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameSceneUIManager : MonoBehaviourSingleton<GameSceneUIManager>
+public class GameSceneUIManager : MonoBehaviourSingleton<GameSceneUIManager>, IGameInitializer
 {
     [Header("가상 카메라 (Main Camera 제어용)")]
     [SerializeField] private CinemachineCamera ccGround;
@@ -16,8 +18,10 @@ public class GameSceneUIManager : MonoBehaviourSingleton<GameSceneUIManager>
     [SerializeField] private Button _cameraButton;
     
     public bool IsSkyView = false;
+    
+    [SerializeField] private ConstellationUI _constellationUI;
 
-    private void Start()
+    public void Initialize(Action onCompleted)
     {
         ccGround.Priority = 10;
         ccSky.Priority = 0;
@@ -26,6 +30,8 @@ public class GameSceneUIManager : MonoBehaviourSingleton<GameSceneUIManager>
         ccStarSky.Priority = 0;
         
         _cameraButton.onClick.AddListener(ToggleCameraView);
+        
+        onCompleted?.Invoke();
     }
     
     /// <summary>
@@ -49,6 +55,18 @@ public class GameSceneUIManager : MonoBehaviourSingleton<GameSceneUIManager>
             ccSky.Priority = 0;
             ccStarSky.Priority = 0;
             Debug.Log("카메라 이동: 하늘 -> 땅 (캐릭터 표시)");
+        }
+    }
+
+    public void UpdateGuide(ConstellationData constellationData)
+    {
+        if (_constellationUI != null)
+        {
+            _constellationUI.UpdateGuide(constellationData);
+        }
+        else
+        {
+            Debug.LogWarning("ConstellationUI가 연결되지 않았습니다!");
         }
     }
 }
