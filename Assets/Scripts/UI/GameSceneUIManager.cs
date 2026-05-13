@@ -20,6 +20,10 @@ public class GameSceneUIManager : MonoBehaviourSingleton<GameSceneUIManager>, IG
     public bool IsSkyView = false;
     
     [SerializeField] private ConstellationUI _constellationUI;
+    
+    // GameSceneUIManager.cs 내부에 추가
+    [SerializeField] private NoteBookUI _notebookUI;
+    [SerializeField] private Button _notebookButton; // 수첩 여는 버튼
 
     public void Initialize(Action onCompleted)
     {
@@ -30,6 +34,9 @@ public class GameSceneUIManager : MonoBehaviourSingleton<GameSceneUIManager>, IG
         ccStarSky.Priority = 0;
         
         _cameraButton.onClick.AddListener(ToggleCameraView);
+        
+        _notebookButton.onClick.RemoveAllListeners();
+        _notebookButton.onClick.AddListener(ToggleNotebook);
         
         onCompleted?.Invoke();
     }
@@ -67,6 +74,14 @@ public class GameSceneUIManager : MonoBehaviourSingleton<GameSceneUIManager>, IG
         else
         {
             Debug.LogWarning("ConstellationUI가 연결되지 않았습니다!");
+        }
+    }
+    
+    public void ToggleNotebook()
+    {
+        if (_notebookUI != null)
+        {
+            _notebookUI.ToggleNotebook();
         }
     }
 }
