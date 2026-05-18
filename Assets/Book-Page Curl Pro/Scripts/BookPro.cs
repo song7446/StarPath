@@ -3,6 +3,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using System.Collections;
 using System;
+using SongLib;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -14,11 +15,11 @@ namespace BookCurlPro
         RightToLeft,
         LeftToRight
     }
+
     public class BookPro : MonoBehaviour
     {
         Canvas canvas;
-        [SerializeField]
-        RectTransform BookPanel;
+        [SerializeField] RectTransform BookPanel;
         public Image ClippingPlane;
         public Image Shadow;
         public Image LeftPageShadow;
@@ -28,12 +29,13 @@ namespace BookCurlPro
         public RectTransform RightPageTransform;
         public bool interactable = true;
         public bool enableShadowEffect = true;
+
         [Tooltip("Uncheck this if the book does not contain transparent pages to improve the overall performance")]
         public bool hasTransparentPages = true;
-        [HideInInspector]
-        public int currentPaper = 0;
-        [HideInInspector]
-        public Paper[] papers;
+
+        [HideInInspector] public int currentPaper = 0;
+        [HideInInspector] public Paper[] papers;
+
         /// <summary>
         /// OnFlip invocation list, called when any page flipped
         /// </summary>
@@ -59,25 +61,23 @@ namespace BookCurlPro
                 }
             }
         }
-        [HideInInspector]
-        public int StartFlippingPaper = 0;
-        [HideInInspector]
-        public int EndFlippingPaper = 1;
+
+        [HideInInspector] public int StartFlippingPaper = 0;
+        [HideInInspector] public int EndFlippingPaper = 1;
 
         public Vector3 EndBottomLeft
         {
             get { return ebl; }
         }
+
         public Vector3 EndBottomRight
         {
             get { return ebr; }
         }
+
         public float Height
         {
-            get
-            {
-                return BookPanel.rect.height;
-            }
+            get { return BookPanel.rect.height; }
         }
 
         Image Left;
@@ -97,7 +97,7 @@ namespace BookCurlPro
         bool tweening = false;
 
         // Use this for initialization
-        void Start()
+        public void Init()
         {
             Canvas[] c = GetComponentsInParent<Canvas>();
             if (c.Length > 0)
@@ -114,7 +114,8 @@ namespace BookCurlPro
             float pageHeight = BookPanel.rect.height;
 
 
-            ClippingPlane.rectTransform.sizeDelta = new Vector2(pageWidth * 2 + pageHeight, pageHeight + pageHeight * 2);
+            ClippingPlane.rectTransform.sizeDelta =
+                new Vector2(pageWidth * 2 + pageHeight, pageHeight + pageHeight * 2);
 
             //hypotenous (diagonal) page length
             float hyp = Mathf.Sqrt(pageWidth * pageWidth + pageHeight * pageHeight);
@@ -143,6 +144,7 @@ namespace BookCurlPro
             Vector2 localPos = BookPanel.InverseTransformPoint(global);
             return localPos;
         }
+
         /// <summary>
         /// transform mouse position to local space
         /// </summary>
@@ -152,7 +154,9 @@ namespace BookCurlPro
         {
             if (canvas.renderMode == RenderMode.ScreenSpaceCamera)
             {
-                Vector3 mouseWorldPos = canvas.worldCamera.ScreenToWorldPoint(new Vector3(mouseScreenPos.x, mouseScreenPos.y, canvas.planeDistance));
+                Vector3 mouseWorldPos =
+                    canvas.worldCamera.ScreenToWorldPoint(new Vector3(mouseScreenPos.x, mouseScreenPos.y,
+                        canvas.planeDistance));
                 Vector2 localPos = BookPanel.InverseTransformPoint(mouseWorldPos);
 
                 return localPos;
@@ -175,7 +179,6 @@ namespace BookCurlPro
                 Vector2 localPos = BookPanel.InverseTransformPoint(mouseScreenPos);
                 return localPos;
             }
-
         }
 
         /// <summary>
@@ -213,7 +216,6 @@ namespace BookCurlPro
                     papers[i].Front.transform.SetSiblingIndex(papers.Length - i + previousPaper);
                     BookUtility.CopyTransform(RightPageTransform.transform, papers[i].Front.transform);
                 }
-
             }
             else
             {
@@ -225,16 +227,18 @@ namespace BookCurlPro
                     //papers[previousPaper].Back.transform.SetSiblingIndex(previousPaper);
                     BookUtility.CopyTransform(LeftPageTransform.transform, papers[previousPaper].Back.transform);
                 }
+
                 //show front of current page only
                 if (currentPaper <= papers.Length - 1)
                 {
                     BookUtility.ShowPage(papers[currentPaper].Front);
                     papers[currentPaper].Front.transform.SetSiblingIndex(papers.Length - currentPaper + previousPaper);
                     BookUtility.CopyTransform(RightPageTransform.transform, papers[currentPaper].Front.transform);
-
                 }
             }
+
             #region Shadow Effect
+
             if (enableShadowEffect)
             {
                 //the shadow effect enabled
@@ -276,8 +280,8 @@ namespace BookCurlPro
 
                 RightPageShadow.gameObject.SetActive(false);
                 RightPageShadow.transform.SetParent(BookPanel, true);
-
             }
+
             #endregion
         }
 
@@ -287,11 +291,10 @@ namespace BookCurlPro
         {
             if (interactable && !tweening)
             {
-
                 DragRightPageToPoint(transformPointMousePosition(GetMousePosition()));
             }
-
         }
+
         public void DragRightPageToPoint(Vector3 point)
         {
             if (currentPaper > EndFlippingPaper) return;
@@ -320,15 +323,15 @@ namespace BookCurlPro
 
             UpdateBookRTLToPoint(f);
         }
+
         public void OnMouseDragLeftPage()
         {
             if (interactable && !tweening)
             {
                 DragLeftPageToPoint(transformPointMousePosition(GetMousePosition()));
-
             }
-
         }
+
         public void DragLeftPageToPoint(Vector3 point)
         {
             if (currentPaper <= StartFlippingPaper) return;
@@ -358,11 +361,13 @@ namespace BookCurlPro
             ClippingPlane.gameObject.SetActive(true);
             UpdateBookLTRToPoint(f);
         }
+
         public void OnMouseRelease()
         {
             if (interactable)
                 ReleasePage();
         }
+
         public void ReleasePage()
         {
             if (pageDragging)
@@ -390,7 +395,7 @@ namespace BookCurlPro
 
         private Vector2 GetMousePosition()
         {
-            #if ENABLE_INPUT_SYSTEM
+#if ENABLE_INPUT_SYSTEM
             // Check for touch input first (for touchscreen devices)
             if (Touchscreen.current != null)
             {
@@ -400,16 +405,18 @@ namespace BookCurlPro
                     return primaryTouch.position.ReadValue();
                 }
             }
+
             // Fall back to mouse input
             if (Mouse.current != null)
             {
                 return Mouse.current.position.ReadValue();
             }
-            return Vector2.zero;
-            #endif
-            return Input.mousePosition;
 
+            return Vector2.zero;
+#endif
+            return Input.mousePosition;
         }
+
         public void UpdateBook()
         {
             f = Vector3.Lerp(f, transformPointMousePosition(GetMousePosition()), Time.deltaTime * 10);
@@ -463,6 +470,7 @@ namespace BookCurlPro
                 });
             }
         }
+
         void TweenUpdate(Vector3 follow)
         {
             if (mode == FlipMode.RightToLeft)
@@ -481,8 +489,8 @@ namespace BookCurlPro
                     currentPaper -= 1;
                     Right.transform.SetParent(BookPanel.transform);
                     Left.transform.SetParent(BookPanel.transform);
-                //pageDragging = false;
-                tweening = false;
+                    //pageDragging = false;
+                    tweening = false;
                     Shadow.gameObject.SetActive(false);
                     ShadowLTR.gameObject.SetActive(false);
                     UpdatePages();
@@ -495,8 +503,8 @@ namespace BookCurlPro
                 {
                     Left.transform.SetParent(BookPanel.transform);
                     Right.transform.SetParent(BookPanel.transform);
-                //pageDragging = false;
-                tweening = false;
+                    //pageDragging = false;
+                    tweening = false;
                     Shadow.gameObject.SetActive(false);
                     ShadowLTR.gameObject.SetActive(false);
                     UpdatePages();
@@ -505,19 +513,26 @@ namespace BookCurlPro
         }
 
         #region Page Curl Internal Calculations
+
         //for more info about this part please check this link : http://rbarraza.com/html5-canvas-pageflip/
 
         float radius1, radius2;
+
         //Spine Bottom
         Vector3 sb;
+
         //Spine Top
         Vector3 st;
+
         //corner of the page
         Vector3 c;
+
         //Edge Bottom Right
         Vector3 ebr;
+
         //Edge Bottom Left
         Vector3 ebl;
+
         //follow point 
         Vector3 f;
 
@@ -532,6 +547,7 @@ namespace BookCurlPro
             float pageHeight = BookPanel.rect.height;
             radius2 = Mathf.Sqrt(pageWidth * pageWidth + pageHeight * pageHeight);
         }
+
         public void UpdateBookRTLToPoint(Vector3 followLocation)
         {
             mode = FlipMode.RightToLeft;
@@ -547,6 +563,7 @@ namespace BookCurlPro
                 ShadowLTR.transform.localEulerAngles = Vector3.zero;
                 ShadowLTR.gameObject.SetActive(true);
             }
+
             Right.transform.SetParent(ClippingPlane.transform, true);
 
             Left.transform.SetParent(BookPanel.transform, true);
@@ -575,6 +592,7 @@ namespace BookCurlPro
 
             Shadow.rectTransform.SetParent(Right.rectTransform, true);
         }
+
         public void UpdateBookLTRToPoint(Vector3 followLocation)
         {
             mode = FlipMode.LeftToRight;
@@ -590,6 +608,7 @@ namespace BookCurlPro
                 Shadow.transform.localEulerAngles = Vector3.zero;
                 Shadow.gameObject.SetActive(true);
             }
+
             Left.transform.SetParent(ClippingPlane.transform, true);
             Right.transform.SetParent(BookPanel.transform, true);
 
@@ -616,6 +635,7 @@ namespace BookCurlPro
 
             ShadowLTR.rectTransform.SetParent(Left.rectTransform, true);
         }
+
         private float Calc_T0_T1_Angle(Vector3 c, Vector3 bookCorner, out Vector3 t1)
         {
             Vector3 t0 = (c + bookCorner) / 2;
@@ -634,6 +654,7 @@ namespace BookCurlPro
             T0_T1_Angle = Mathf.Atan2(T0_T1_dy, T0_T1_dx) * Mathf.Rad2Deg;
             return T0_T1_Angle;
         }
+
         private float normalizeT1X(float t1, Vector3 corner, Vector3 sb)
         {
             if (t1 > sb.x && sb.x > corner.x)
@@ -642,6 +663,7 @@ namespace BookCurlPro
                 return sb.x;
             return t1;
         }
+
         private Vector3 Calc_C_Position(Vector3 followLocation)
         {
             Vector3 c;
@@ -660,15 +682,16 @@ namespace BookCurlPro
             float F_ST_dx = c.x - st.x;
             float F_ST_Angle = Mathf.Atan2(F_ST_dy, F_ST_dx);
             Vector3 r2 = new Vector3(radius2 * Mathf.Cos(F_ST_Angle),
-               radius2 * Mathf.Sin(F_ST_Angle), 0) + st;
+                radius2 * Mathf.Sin(F_ST_Angle), 0) + st;
             float C_ST_distance = Vector2.Distance(c, st);
             if (C_ST_distance > radius2)
                 c = r2;
             return c;
         }
-        #endregion
 
+        #endregion
     }
+
     [Serializable]
     public class Paper
     {
@@ -707,7 +730,6 @@ namespace BookCurlPro
             to.position = from.position;
             to.rotation = from.rotation;
             to.localScale = from.localScale;
-
         }
     }
 }

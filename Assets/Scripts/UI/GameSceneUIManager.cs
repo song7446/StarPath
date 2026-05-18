@@ -38,6 +38,8 @@ public class GameSceneUIManager : MonoBehaviourSingleton<GameSceneUIManager>, IG
         _notebookButton.onClick.RemoveAllListeners();
         _notebookButton.onClick.AddListener(ToggleNotebook);
         
+        _notebookUI.SetupNotebookData();
+        
         onCompleted?.Invoke();
     }
     

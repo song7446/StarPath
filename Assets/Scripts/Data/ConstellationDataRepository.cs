@@ -10,11 +10,10 @@ public class ConstellationDataRepository : MonoBehaviourSingleton<ConstellationD
     private TextAsset _constellationJson;
 
     private Dictionary<string, ConstellationRow> _constellationMap;
-    private List<ConstellationRow> _constellationList;
-
-    private List<DialogueRow> _currentChapterConstellation;
-    private int _currentConstellationIdx;
+    private List<ConstellationRow> _allConstellations;
     
+    private int _currentConstellationIdx;
+
     public async Task LoadConstellationData()
     {
         _constellationJson = await AddressableManager.LoadAssetAsync<TextAsset>(ScriptableObjectAddressManager.GetConstellationAddress());
@@ -27,7 +26,7 @@ public class ConstellationDataRepository : MonoBehaviourSingleton<ConstellationD
 
         var database = JsonUtility.FromJson<ConstellationDatabase>(_constellationJson.text);
         _constellationMap = new Dictionary<string, ConstellationRow>(database.Constellations.Length);
-        _constellationList = new List<ConstellationRow>(database.Constellations.Length);
+        _allConstellations = new List<ConstellationRow>(database.Constellations.Length);
 
         foreach (var row in database.Constellations)
         {
@@ -38,7 +37,7 @@ public class ConstellationDataRepository : MonoBehaviourSingleton<ConstellationD
             }
 
             _constellationMap.Add(row.Id, row);
-            _constellationList.Add(row);
+            _allConstellations.Add(row);
         }
         
         AddressableManager.ReleaseAsset(ScriptableObjectAddressManager.GetConstellationAddress());
@@ -55,5 +54,18 @@ public class ConstellationDataRepository : MonoBehaviourSingleton<ConstellationD
         
         Debug.LogWarning($"[ConstellationDataRepository] Constellation not found: {id}");
         return null;
+    }
+
+    public List<ConstellationRow> GetUnlockedData()
+    {
+        List<ConstellationRow> unlockedList = new List<ConstellationRow>();
+
+        int maxIndex = Mathf.Min(GameManager.Instance.CurrentChapterId, _allConstellations.Count);
+        for (int i = 0; i < maxIndex; i++)
+        {
+            unlockedList.Add(_allConstellations[i]);
+        }
+    
+        return unlockedList;
     }
 }
