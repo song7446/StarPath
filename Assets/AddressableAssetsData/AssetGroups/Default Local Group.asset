@@ -20,6 +20,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2955cfafa86f7a3408d0118e12751500
+    m_Address: UrsaMajorSO
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Constellation
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5b8fcb333e8b83e4b8a49212fa1039cf
     m_Address: Chapter_1_Back
     m_ReadOnly: 0

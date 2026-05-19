@@ -28,7 +28,7 @@ public class NoteBookUI : MonoBehaviour
 
         // 💡 1. 필요한 총 Paper 묶음 개수 계산
         // 데이터가 1개면 Page 1, Page 2가 필요하므로 papers[0]과 papers[1] 총 2묶음이 필요함.
-        int neededPapers = unlockedData.Count + 10;
+        int neededPapers = unlockedData.Count + 2;
 
         // 종이가 모자라면 동적으로 생성 (AddNewPaper 활용)
         while (bookPro.papers.Length < neededPapers)
@@ -61,24 +61,24 @@ public class NoteBookUI : MonoBehaviour
         // 💡 3. 하이라키 상의 Page 번호 흐름대로 착착 꽂아 넣기
         for (int i = 0; i < unlockedData.Count; i++)
         {
-            var data = unlockedData[i];
+            var displayData = unlockedData[i];
 
             // --- 왼쪽 페이지 (사진) ---
             // 0번째 데이터 -> papers[0].Back (Page 1)
             // 1번째 데이터 -> papers[1].Back (Page 3)
-            var leftUI = bookPro.papers[i].Back.GetComponent<NoteBookPageUI>();
+            var leftUI = bookPro.papers[i+1].Back.GetComponent<NoteBookPageUI>();
             if (leftUI != null)
             {
-                leftUI.SetPageData(data);
+                leftUI.SetPageData(displayData);
             }
 
             // --- 오른쪽 페이지 (글) ---
             // 0번째 데이터 -> papers[1].Front (Page 2)
             // 1번째 데이터 -> papers[2].Front (Page 4)
-            var rightUI = bookPro.papers[i + 1].Front.GetComponent<NoteBookPageUI>();
+            var rightUI = bookPro.papers[i + 2].Front.GetComponent<NoteBookPageUI>();
             if (rightUI != null)
             {
-                rightUI.SetPageData(data);
+                rightUI.SetPageData(displayData);
                 // 마지막 데이터면 다음으로 넘어가는 버튼 숨기기
                 // rightUI.SetDogEarButtonActive(i < unlockedData.Count - 1);
             }
@@ -89,7 +89,7 @@ public class NoteBookUI : MonoBehaviour
         bookPro.EndFlippingPaper = neededPapers - 1;
 
         // 수첩 켰을 때 바로 Page 1과 Page 2가 마주보게 펼치기
-        bookPro.CurrentPaper = 0;
+        bookPro.CurrentPaper = 2;
     }
 
     public void AddNewPaper()

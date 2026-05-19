@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class ChapterDataRepository : MonoBehaviourSingleton<ChapterDataRepository>
 {
-    [SerializeField] public ChapterDefinition currentChapterDefinitions;
+    public ChapterDefinition currentChapterDefinitions;
     
     private string _currentChapterAddress;
     private string _lastLoadedAddress;
