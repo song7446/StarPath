@@ -43,7 +43,7 @@ public class NoteBookUI : MonoBehaviour
             if (frontUI != null)
             {
                 frontUI.ClearPage();
-                
+
                 frontUI.SetActionOnClickDogEarButton(() => autoFlip.FlipRightPage());
                 frontUI.SetDogEarButton();
             }
@@ -52,7 +52,7 @@ public class NoteBookUI : MonoBehaviour
             if (backUI != null)
             {
                 backUI.ClearPage();
-                
+
                 backUI.SetActionOnClickDogEarButton(() => autoFlip.FlipLeftPage());
                 backUI.SetDogEarButton();
             }
@@ -98,12 +98,12 @@ public class NoteBookUI : MonoBehaviour
         GameObject newFront = Instantiate(rightPagePrefab, bookPro.transform); // 오른쪽
         GameObject newBack = Instantiate(leftPagePrefab, bookPro.transform); // 왼쪽
 
-        newFront.name = "Page" + (bookPro.papers.Length + 1);
-        newBack.name = "Page" + (bookPro.papers.Length + 2);
+        newFront.name = "Page" + (bookPro.papers.Length * 2);
+        newBack.name = "Page" + (bookPro.papers.Length * 2 + 1);
 
         Paper newPaper = new Paper();
         newPaper.Front = newFront;
-        newPaper.Back = newBack; 
+        newPaper.Back = newBack;
 
         List<Paper> paperList = new List<Paper>(bookPro.papers);
         paperList.Add(newPaper);
