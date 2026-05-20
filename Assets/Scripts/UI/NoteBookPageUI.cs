@@ -12,9 +12,9 @@ public class NoteBookPageUI : MonoBehaviour
     [Header("왼쪽 페이지 전용 (홀수)")]
     public Image constellationImage;
     public Button polaroidButton; // 폴라로이드 가이드 변경 버튼
+    public TextMeshProUGUI nameText;
 
     [Header("오른쪽 페이지 전용 (짝수)")]
-    public TextMeshProUGUI titleText;
     public TextMeshProUGUI descText;
 
     [Header("페이지 넘김 버튼 (모서리)")]
@@ -46,6 +46,8 @@ public class NoteBookPageUI : MonoBehaviour
                 constellationImage.sprite = constellationDisplayData.Data.constellationGuideImage;
                 constellationImage.gameObject.SetActive(true);
             }
+            
+            if (nameText != null) nameText.text = constellationDisplayData.Row.Name_Kr;
 
             if (polaroidButton != null)
             {
@@ -56,7 +58,6 @@ public class NoteBookPageUI : MonoBehaviour
         }
         else // 오른쪽 페이지
         {
-            if (titleText != null) titleText.text = constellationDisplayData.Row.Name_Kr;
             if (descText != null) descText.text = constellationDisplayData.Row.Explain_Kr;
         }
     }
@@ -66,7 +67,7 @@ public class NoteBookPageUI : MonoBehaviour
         _constellationDisplayData = null;
         if (constellationImage != null) constellationImage.gameObject.SetActive(false);
         if (polaroidButton != null) polaroidButton.gameObject.SetActive(false);
-        if (titleText != null) titleText.text = "";
+        if (nameText != null) nameText.text = "";
         if (descText != null) descText.text = "";
     }
 
