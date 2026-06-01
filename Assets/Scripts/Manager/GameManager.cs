@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         ChapterDataRepository.Instance.SetCurrentChapterAddress(CurrentChapterId, isFront);
         await ChapterDataRepository.Instance.LoadCurrentChapterSO();
         
-        // GameSceneUIManager.Instance.UpdateGuide(ChapterDataRepository.Instance.currentChapterDefinitions.constellationData);
+        GameSceneUIManager.Instance.UpdateGuide(ChapterDataRepository.Instance.currentChapterDefinitions.constellationData);
 
         // [초기화 페이즈] 부트스트래퍼 공통 세팅
         _bootstrapper = new Bootstrapper();
