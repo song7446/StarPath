@@ -9,7 +9,6 @@ public class GameSceneEntryPoint : MonoBehaviour
         await ConstellationDataRepository.Instance.LoadConstellationData();
 
         await GameManager.Instance.EnterNextChapter();
-
         
         Destroy(this);
     }

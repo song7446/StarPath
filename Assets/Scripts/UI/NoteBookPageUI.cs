@@ -78,6 +78,9 @@ public class NoteBookPageUI : MonoBehaviour
 
         // 전에 만드셨던 폴라로이드 매니저에게 이 별자리 데이터를 넘겨서 가이드를 바꿉니다!
         // PolaroidManager.Instance.UpdateGuidePhoto(_pageData);
+        
+        GameSceneUIManager.Instance.UpdateGuide(_constellationDisplayData.Data);
+        
         Debug.Log($"{_constellationDisplayData.Row.Name_Kr} 폴라로이드 가이드로 변경!");
     }
 
