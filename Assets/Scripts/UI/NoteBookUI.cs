@@ -1,28 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using BookCurlPro;
+using DG.Tweening;
 using UnityEngine;
 
 public class NoteBookUI : MonoBehaviour
 {
-    [Header("수첩 UI 연결")] public CanvasGroup canvasGroup;
+    [Header("노트 설정")]
+    private RectTransform  _guideRectTransform;
+    public float outPositionY = 1200f;
+    public float animationDuration = 0.5f;
+    private Vector2 _noteStartPosition;
+    private bool _isAnimating;
+    private bool _isOpen;
 
     [Header("연출 설정")] public float fadeDuration = 0.3f;
-
-    private bool _isOpen = false;
-
-    // 💡 현재 실행 중인 애니메이션 코루틴을 담아둘 변수
-    private Coroutine _currentCoroutine;
 
     public BookPro bookPro;
     public AutoFlip autoFlip;
 
-    [Header("프리팹 연결")] public GameObject leftPagePrefab; // 모서리 버튼이 좌측 하단에 있는 프리팹
+    [Header("프리팹 연결")] 
+    public GameObject leftPagePrefab; // 모서리 버튼이 좌측 하단에 있는 프리팹
     public GameObject rightPagePrefab;
 
     public void SetupNotebookData()
     {
         var unlockedData = ConstellationDataRepository.Instance.GetUnlockedData();
+
+        _guideRectTransform = transform.GetComponent<RectTransform>();
+        _noteStartPosition = _guideRectTransform.anchoredPosition;
+        
+        _guideRectTransform.anchoredPosition = new Vector2(_noteStartPosition.x, outPositionY);
+        _isOpen = false;
 
         bookPro.Init();
 
@@ -114,76 +123,28 @@ public class NoteBookUI : MonoBehaviour
 
     public void ToggleNotebook()
     {
-        // [안전장치 1] 만약 상위 부모(Canvas 등)가 아예 꺼져있다면 실행 안 함
-        if (!gameObject.activeInHierarchy && transform.parent != null && !transform.parent.gameObject.activeInHierarchy)
-        {
-            Debug.LogWarning("부모 UI가 꺼져 있어서 수첩을 켤 수 없습니다.");
-            return;
-        }
-
-        _isOpen = !_isOpen; // 상태를 먼저 무조건 반전시킴
-
-        // 💡 [안전장치 2] 이미 돌고 있는 페이드 애니메이션이 있다면 강제 정지! (광클 방지)
-        if (_currentCoroutine != null)
-        {
-            StopCoroutine(_currentCoroutine);
-        }
-
-        if (_isOpen)
-        {
-            gameObject.SetActive(true); // 코루틴을 켜기 전에 무조건 활성화
-            _currentCoroutine = StartCoroutine(FadeInAnimation());
-        }
-        else
-        {
-            // 꺼야 하는데 오브젝트가 이미 꺼져있다면 굳이 코루틴을 돌릴 필요 없음
-            if (gameObject.activeInHierarchy)
-            {
-                _currentCoroutine = StartCoroutine(FadeOutAnimation());
-            }
-        }
+        if (_isAnimating) return;
+    
+        PlayVerticalSlide(!_isOpen);
     }
-
-    private IEnumerator FadeInAnimation()
+    private void PlayVerticalSlide(bool show)
     {
-        float time = 0f;
+        gameObject.SetActive(true);
+        _isAnimating = true;
+        // 나올 때는 원래 위치로, 들어갈 때는 위쪽 바깥으로
+        float targetY = show ? _noteStartPosition.y : outPositionY;
+    
+        // 나올 때는 툭 떨어지는 느낌(OutBounce 또는 OutExpo), 
+        // 들어갈 때는 슉 올라가는 느낌(InCubic)
+        Ease easeType = show ? Ease.OutExpo : Ease.InCubic;
 
-        // 💡 투명도를 무조건 0으로 안 하고, '현재 멈춘 투명도'에서 이어서 시작 (부드러운 전환)
-        float startAlpha = canvasGroup.alpha;
-
-        while (time < fadeDuration)
-        {
-            time += Time.deltaTime;
-            float t = time / fadeDuration;
-            float easeOut = 1f - Mathf.Pow(1f - t, 3f);
-
-            canvasGroup.alpha = Mathf.Lerp(startAlpha, 1f, easeOut);
-
-            yield return null;
-        }
-
-        canvasGroup.alpha = 1f;
-        _currentCoroutine = null; // 연출 끝
-    }
-
-    private IEnumerator FadeOutAnimation()
-    {
-        float time = 0f;
-        float startAlpha = canvasGroup.alpha;
-
-        while (time < fadeDuration)
-        {
-            time += Time.deltaTime;
-            float t = time / fadeDuration;
-            float easeIn = t * t * t;
-
-            canvasGroup.alpha = Mathf.Lerp(startAlpha, 0f, easeIn);
-
-            yield return null;
-        }
-
-        canvasGroup.alpha = 0f;
-        gameObject.SetActive(false); // 완전히 투명해진 뒤에 꺼줌
-        _currentCoroutine = null; // 연출 끝
+        _guideRectTransform.DOKill();
+        _guideRectTransform.DOAnchorPosY(targetY, animationDuration)
+            .SetEase(Ease.OutExpo)
+            .OnComplete(() => {
+                _isAnimating = false;
+                _isOpen = show;
+                if (!show) gameObject.SetActive(false); 
+            });
     }
 }

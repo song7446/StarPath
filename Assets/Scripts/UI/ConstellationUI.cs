@@ -7,11 +7,13 @@ using UnityEngine.UI;
 
 public class ConstellationUI : MonoBehaviour
 {
-    [Header("UI 연결")] public GameObject GuidePanel;
+    [Header("UI 연결")] 
+    public GameObject GuidePanel;
     public Image GuideImage; // 폴라로이드 이미지
     public TextMeshProUGUI GuideText;
 
-    [Header("설정")] public float animationDuration = 0.5f;
+    [Header("설정")]
+    public float animationDuration = 0.5f;
     public float outPositionX = -530;
 
     private Vector2 startPosition;
@@ -68,6 +70,7 @@ public class ConstellationUI : MonoBehaviour
 // 1. 단순히 넣었다 뺐다 하는 애니메이션
     private void PlaySlideAnimation(bool show)
     {
+        gameObject.SetActive(true);
         isAnimating = true;
         float targetX = show ? startPosition.x : outPositionX;
         Ease easeType = show ? Ease.OutExpo : Ease.InCubic;
@@ -78,6 +81,7 @@ public class ConstellationUI : MonoBehaviour
             {
                 isAnimating = false;
                 isOnGuide = show;
+                if (!show) gameObject.SetActive(false);
             });
     }
 
