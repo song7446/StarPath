@@ -40,7 +40,6 @@ public class GameSceneUIManager : MonoBehaviourSingleton<GameSceneUIManager>, IG
         _hideGuideImageButton.onClick.AddListener(OnClickHideGuideImageButton);
         
         _notebookUI.SetupNotebookData();
-        _constellationUI.Init();
         
         onCompleted?.Invoke();
     }

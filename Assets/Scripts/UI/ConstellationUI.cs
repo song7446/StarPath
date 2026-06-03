@@ -21,16 +21,15 @@ public class ConstellationUI : MonoBehaviour
     private bool isOnGuide = false; // 현재 가이드가 화면에 나와있는지 여부
     private bool isImageVisible = true; // 폴라로이드 이미지가 켜져있는지 여부
 
+    [SerializeField] 
     private RectTransform guideRectTransform;
-
-    public void Init()
+    
+    [ContextMenu("현재 위치를 'startPosition'으로 저장")]
+    private void CaptureTargetPosition()
     {
-        guideRectTransform = GuidePanel.GetComponent<RectTransform>();
-        startPosition = guideRectTransform.anchoredPosition;
-
-        // [추가] 시작할 때 패널을 화면 밖으로 미리 빼둡니다.
-        guideRectTransform.anchoredPosition = new Vector2(outPositionX, startPosition.y);
-        isOnGuide = false;
+        if (GuidePanel == null) return;
+        startPosition = GuidePanel.GetComponent<RectTransform>().anchoredPosition;
+        Debug.Log($"<color=yellow>Target Position 저장됨: {startPosition}</color>");
     }
 
     public void UpdateGuide(ConstellationData constellationData)
@@ -43,7 +42,7 @@ public class ConstellationUI : MonoBehaviour
             return;
         }
 
-        if (!GuidePanel.activeSelf)
+        if (!isOnGuide)
         {
             // 처음 나타날 때는 바로 등장
             GuidePanel.SetActive(true);

@@ -5400,6 +5400,7 @@ MonoBehaviour:
   GuideText: {fileID: 1980513213}
   animationDuration: 0.5
   outPositionX: -530
+  guideRectTransform: {fileID: 1237531331}
 --- !u!1 &1980513211
 GameObject:
   m_ObjectHideFlags: 0
