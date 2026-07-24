@@ -107,9 +107,7 @@ public class ChapterAnswerViewerWindow : EditorWindow
         if (currentChapter.constellationData == null) return;
 
         Handles.color = _lineColor;
-
-         // ★ 원석님의 ConstellationData 연결 구조에 맞춰서 수정해야 하는 부분
-         // 예시: answerConnections라는 리스트가 있다고 가정
+        
          /*
          foreach (var connection in currentChapter.constellationData.answerConnections)
          {
