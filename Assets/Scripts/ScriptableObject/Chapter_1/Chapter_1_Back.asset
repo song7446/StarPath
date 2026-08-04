@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fc692c8e14f4fb4f9cde816bab6d1d7, type: 3}
   m_Name: Chapter_1_Back
   m_EditorClassIdentifier: Assembly-CSharp::ChapterDefinition
-  chapterId: Chapter_1_Back
+  chapterId: 1_Back
   dialogueAnimations: []
   cutSceneCasts: {fileID: 11400000, guid: 512ea863382aaaf44938d2b007718379, type: 2}
   constellationData: {fileID: 11400000, guid: 2955cfafa86f7a3408d0118e12751500, type: 2}
