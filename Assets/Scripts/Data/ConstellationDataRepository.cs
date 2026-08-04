@@ -99,6 +99,10 @@ public class ConstellationDataRepository : MonoBehaviourSingleton<ConstellationD
                     Data = data
                 });
             }
+            else
+            {
+                Debug.LogError("[ConstellationDataRepository] Constellation row not found");
+            }
         }
     
         return unlockedList;
