@@ -20,9 +20,7 @@ public class NoteBookPageUI : MonoBehaviour
     [Header("페이지 넘김 버튼 (모서리)")]
     public Button dogEarButton; // 45도 마스크로 만든 모서리 버튼 오브젝트
     public Action OnClickDogEarButton;
-
-    // 💡 [핵심] 현재 페이지의 데이터를 저장해둡니다 (폴라로이드 변경을 위해)
-    // ConstellationRow는 원석님의 데이터 클래스 이름으로 맞춰주세요.
+    
     private ConstellationDisplayData _constellationDisplayData;
 
     public void SetActionOnClickDogEarButton(Action action)
@@ -39,27 +37,27 @@ public class NoteBookPageUI : MonoBehaviour
     {
         _constellationDisplayData = constellationDisplayData;
 
-        if (isLeftPage)
-        {
-            if (constellationImage != null)
-            {
-                constellationImage.sprite = constellationDisplayData.Data.constellationGuideImage;
-                constellationImage.gameObject.SetActive(true);
-            }
-            
-            if (nameText != null) nameText.text = constellationDisplayData.Row.Name_Kr;
-
-            if (polaroidButton != null)
-            {
-                polaroidButton.gameObject.SetActive(true);
-                polaroidButton.onClick.RemoveAllListeners();
-                polaroidButton.onClick.AddListener(OnClickPolaroidButton);
-            }
-        }
-        else // 오른쪽 페이지
-        {
-            if (descText != null) descText.text = constellationDisplayData.Row.Explain_Kr;
-        }
+        // if (isLeftPage)
+        // {
+        //     if (constellationImage != null)
+        //     {
+        //         constellationImage.sprite = constellationDisplayData.Data.constellationGuideImage;
+        //         constellationImage.gameObject.SetActive(true);
+        //     }
+        //     
+        //     if (nameText != null) nameText.text = constellationDisplayData.Row.Name_Kr;
+        //
+        //     if (polaroidButton != null)
+        //     {
+        //         polaroidButton.gameObject.SetActive(true);
+        //         polaroidButton.onClick.RemoveAllListeners();
+        //         polaroidButton.onClick.AddListener(OnClickPolaroidButton);
+        //     }
+        // }
+        // else // 오른쪽 페이지
+        // {
+        //     if (descText != null) descText.text = constellationDisplayData.Row.Explain_Kr;
+        // }
     }
 
     public void ClearPage()
@@ -75,9 +73,6 @@ public class NoteBookPageUI : MonoBehaviour
     private void OnClickPolaroidButton()
     {
         if (_constellationDisplayData == null) return;
-
-        // 전에 만드셨던 폴라로이드 매니저에게 이 별자리 데이터를 넘겨서 가이드를 바꿉니다!
-        // PolaroidManager.Instance.UpdateGuidePhoto(_pageData);
         
         GameSceneUIManager.Instance.UpdateGuide(_constellationDisplayData.Data);
         
@@ -91,5 +86,10 @@ public class NoteBookPageUI : MonoBehaviour
         {
             dogEarButton.gameObject.SetActive(isActive);
         }
+    }
+
+    public ConstellationDisplayData GetPageConstellationDisplayData()
+    {
+        return _constellationDisplayData;
     }
 }

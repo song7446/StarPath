@@ -83,7 +83,8 @@ public class ConstellationDataRepository : MonoBehaviourSingleton<ConstellationD
         List<ConstellationDisplayData> unlockedList = new List<ConstellationDisplayData>();
         
         // 챕터 순서가 보장된 ID 리스트(_orderedConstellationIds)를 기준으로 돕니다!
-        int maxIndex = Mathf.Min(GameManager.Instance.CurrentChapterId, _orderedConstellationIds.Count);
+        // int maxIndex = Mathf.Min(GameManager.Instance.CurrentChapterId, _orderedConstellationIds.Count);
+        int maxIndex = _orderedConstellationIds.Count;
         
         for (int i = 0; i < maxIndex; i++)
         {

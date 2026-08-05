@@ -15,6 +15,12 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: ba1c0def422a4104ca40e421665dd478
   m_SerializeEntries:
+  - m_GUID: 0dd83cf0e346d0947ba7c1041284fb91
+    m_Address: Chapter3_temp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Constellation
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 19893cf55edee6441ae9b6afce7a05b1
     m_Address: DialogueData
     m_ReadOnly: 0
@@ -26,11 +32,29 @@ MonoBehaviour:
     m_SerializedLabels:
     - Constellation
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4f816c8d9c8c23b4983095fa0b85b22d
+    m_Address: Chapter5_temp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Constellation
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5b8fcb333e8b83e4b8a49212fa1039cf
     m_Address: Chapter_1_Back
     m_ReadOnly: 0
     m_SerializedLabels:
     - Chapter
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5ea8b2bff99f7384b8dae469b4bbc2c4
+    m_Address: Chapter4_temp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Constellation
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6070115c7f0ec12468029522d05f05b0
+    m_Address: Chapter2_temp
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Constellation
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 68b3a87d6d9896c41b8dc3d5f2d1640b
     m_Address: ConstellationData
