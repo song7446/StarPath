@@ -13,6 +13,8 @@ public class CutSceneManager : MonoBehaviourSingleton<CutSceneManager>,IGameInit
 
     public void Initialize(Action onCompleted)
     {
+        ClearObjects();
+        
         foreach (var info in CurrentCast.characterInfos)
         {
             if (info.characterPrefab == null) continue;
@@ -40,6 +42,19 @@ public class CutSceneManager : MonoBehaviourSingleton<CutSceneManager>,IGameInit
     public void SetCurrentCast(CutSceneCast cast)
     {
         CurrentCast = cast;
+    }
+
+    private void ClearObjects()
+    {
+        foreach (var character in _spawnedCharacters)
+        {
+            Destroy(character);
+        }
+
+        foreach (var obj in _spawnedObjects)
+        {
+            Destroy(obj);
+        }
     }
 
     public void StartCutScene()
