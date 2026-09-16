@@ -26,7 +26,7 @@ MonoBehaviour:
   objectInfos:
   - key: Bench_01
     objectName: Bench
-    position: {x: 0, y: -1.69, z: -1.13806}
+    position: {x: 0, y: -1.7, z: -1.13806}
     rotation: {x: 0, y: 0, z: 0}
     objectPrefab: {fileID: 490905150145549792, guid: 143b60ae24216fb4ea87e2f512843d91, type: 3}
   timelineAsset: {fileID: 0}
